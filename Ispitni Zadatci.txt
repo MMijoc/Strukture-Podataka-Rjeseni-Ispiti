@@ -1,1 +1,91 @@
-Ispitni zadatci
+STRUKTURE PODATAKA (120)
+Ispitni zadatci:
+
+***************************************************************************************************
+Zad_1:
+1. ispitni rok 13. 2. 2020
+
+Napisati program koji iz datoteke (ime se unosi u programu) Cita podatke u binarno stablo za pretazivanje u kojeme se sortiraju po prezimenu, pa zatim po imenu osobe. Binarno stablo za pretazivanje je definirano strukturom:
+
+struct person;
+typedef struct _person *Person Position;
+typedef struct _person {
+	char firstName[MAX_NAME];
+	char lastName[MAX_NAME];
+	Word word;
+	PersonPostion left;
+	PersonPosition right;
+} Person;
+
+Pri tome Word word je clan strukture Person koja predstavlja glavu vezane liste, te je definirana kao:
+
+struct _word;
+typedef struct *WordPosition;
+typedef struct _word {
+	char word[MAX_NAME];
+	WordPosition next;
+} Person;
+
+
+Podaci u datoteci su organizirani na nacin da prve dvije rijeci u retku predstavljaju ime prezime, dok ostatak rijci u retku predstavljaju recenicu te osobe.
+Recenicu je potrebno za svaku osobu upisati u vezanu listu Word i to:
+•vezana lista se formira u proizvoljnom rasporedu- za ocjenu 2;
+•lista se formira tako da rečenica ima smisla - za ocjenu S.
+Program ispisuje osobe i njihove recenice in order.
+
+Na kraju programa potrebno je osloboditi svu dinamički rezerviranu memoriju.
+
+
+***************************************************************************************************
+Zad_2
+2. ispitni rok
+
+Zadana je datoteka sa popisom studenata, njihovim ocjenama i pripadajućim  ECTS-ovima.
+Svaki redak datoteke sadrži ime, prezime, ocjenu
+Napisati program koji učitava podatke u hash tablicu dužine 23 i pri tome:
+	* Svaki element hash tablice označava glavu vezane liste.
+	* Ulazni podaci iz datoteke se raspršuju na način da se zbroje ASCII vrijednosti prva tri slova
+	  imena i prezimena.
+	* Svaka vezana lista je sortirana po prezimenu, zatim po imenu studenata
+	* Ukoliko se pojavi student s već postojećim imenom i prezimenom ne uosi se ponovo
+	* Čvor vezane liste je definiran sljedećim poljima:
+				struct _student;
+				typedef struct _student *StudentPosition;
+				typedef struct _student{
+					char firstName[MAX_NAME];
+					char lastName[MAX_NAME];
+					int total;
+					int totalEcts;
+					StudentPosition next;
+				} Student;
+Varijabla total je suma umnožaka ocjena s pripadajućim ECTS-om, a totalEcts je suma svih ECTS-ova.
+Npr. ukoliko su ulazni podaci za studenta Ivu Matića:
+(ime)   (prezime)   (ocjena)    (ECTS)
+---------------------------------------------------------
+---------------------------------------------------------
+Ivo     Matića          4         7
+Ivo     Matića          5         2
+...
+Tada čvor vezane liste treba sadržavati podatke:
+{
+	firstName: Ivo
+	lastName: Matić
+	totalEcts: 38
+	totalEcts: 9
+	next: ...
+}
+
+Za ocjenu 2:
+	* Iz hash tablice upisati sve studente u datoteku zajedno s njihovim relevantnim prosjekom,
+	* Pobrisati svu dinamički rezerviranu memoriju i zatvoriti datoteke
+Za ocjenu 3:
+	* Iz hash tablice upisati u datoteku samo one studente (zajedno s njihovim relevantnim prosjekom)
+	  koji ispunjavaju dva uvjeta za stipendiju:
+		* Relativni prosjek veći ili jednak 3.5
+		* Broj položenih ECTS-ova veći ili jednak 55
+	* Pobrisati svu dinamički rezerviranu memoriju i zatvoriti datoteke
+Za ocjenu 5:
+	* Studente iz koji zadovoljavaju uvjete za stipendiju u datoteku upisati od najvećeg prema
+	  najmanjem relativnom prosjeku.
+
+***************************************************************************************************
