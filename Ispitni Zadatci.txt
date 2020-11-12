@@ -1,11 +1,12 @@
 STRUKTURE PODATAKA (120)
 Ispitni zadatci:
 
-***************************************************************************************************
+************************************************************************************************************************************************
 Zad_1:
 1. ispitni rok 13. 2. 2020
 
 Napisati program koji iz datoteke (ime se unosi u programu) Cita podatke u binarno stablo za pretazivanje u kojeme se sortiraju po prezimenu, pa zatim po imenu osobe. Binarno stablo za pretazivanje je definirano strukturom:
+
 
 struct person;
 typedef struct _person *Person Position;
@@ -36,9 +37,11 @@ Program ispisuje osobe i njihove recenice in order.
 Na kraju programa potrebno je osloboditi svu dinamički rezerviranu memoriju.
 
 
-***************************************************************************************************
+
+************************************************************************************************************************************************
 Zad_2
 2. ispitni rok
+
 
 Zadana je datoteka sa popisom studenata, njihovim ocjenama i pripadajućim  ECTS-ovima.
 Svaki redak datoteke sadrži ime, prezime, ocjenu
@@ -88,4 +91,9 @@ Za ocjenu 5:
 	* Studente iz koji zadovoljavaju uvjete za stipendiju u datoteku upisati od najvećeg prema
 	  najmanjem relativnom prosjeku.
 
-***************************************************************************************************
+
+************************************************************************************************************************************************
+Zad_3
+
+
+

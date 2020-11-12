@@ -1,0 +1,73 @@
+************************************************************************************************************************************************
+Zad_1
+15.02.2018. Grupa 1
+
+
+Napisati program koji:
+a) Iz datoteke „drzave.txt“ čita popis država i njihov ID od pročitanih država izgraditi vezanu listu država na sortirani način od početka prema kraju abecede (treba raditi sortirani unos, a ne naknadno sortirati). Uz pokazivač na sljedeću državu struktura od koje se gradi vezana lista mora sadržavati i pokazivač na stablo gradova koji su u toj državi (trenutno NULL) - za 2
+b) Iz datoteke „gradovi.txt“ pročitati ime grada i ID države u kojoj se nalazi. Pronaći odgovarajuću državu u gornjoj listi, te dodati pročitani grad u stablo gradova te države. Za zadanu državu ispisati sve njene gradove po abecedi. – za 5
+
+************************************************************************************************************************************************
+Zad_2
+15.02.2018. Grupa 2
+
+
+Napisati program koji iz datoteke „text.txt“ čita zadani tekst. Od pročitanih riječi se gradi binarno stablo pretraživanja, s tim da ukoliko se pronađe riječ koja se već nalazi u stablu potrebno ju je dodati u vezanu listu istih riječi za određeni čvor. Ispisati stablo. Za odabranu riječ ispitat koliko se puta ponavlja.
+
+************************************************************************************************************************************************
+Zad_3
+izvanredni ispitni rok 26.9.2017.
+
+
+Kreirati dvije datoteke i u njih upisati 10 slučajno generiranih brojeva iz opsega od 20-35. Svaku od datoteka pročitati i spremiti u vezanu listu (kreiraju se dvije vezane liste, npr. L1 i L2). Ispisati ih. Iz ove dvije vezane liste se kreiraju dvije nove vezane liste koje sadrže:
+a) presjek parnih članova listi L1 i L2;
+b) uniju neparnih članova listi L1 i L2.
+Kod kreiranja listi pod a) i b) se ne smije koristiti malloc, već uzeti postojeće elemente iz listi L1 i L2 i preusmjeriti pokazivače. Ispisati sve četiri liste.
+U listama pod a) i b) ne smije biti duplih vrijednosti i vrijednosti moraju bit složene uzlaznim redoslijedom.
+
+************************************************************************************************************************************************
+Zad_4
+31. kolovoza 2017.
+
+
+Napisati program koji generira 15 slučajnih brojeva u opsegu od 100 - 120 i sprema ih u vezanu listu, po redoslijedu generiranja, a ne sortirano. U listi ne smije biti duplih vrijednosti.
+a) Potrebno je pronaći minimalnu i maksimalnu vrijednost, te iz njih izračunati srednju vrijednost ((min+max)/2) i nakon toga sve vrijednosti koje su veće od srednje prebaciti na kraj liste. Ispisati minimalnu, maksimalnu i srednju vrijednost kao i rezultantnu listu.
+b) Pronaći vrijednost u listi koja je najbliža srednjoj vrijednosti i nju postaviti kao root element binarnog stabla za pretraživanje. Nakon toga sve elemente iz liste prebaciti u stablo i gotovo stablo ispisati na level order način.
+
+************************************************************************************************************************************************
+Zad_5
+12.02.2013. Grupa 1
+
+
+Napisati program koji
+a) Iz datoteke čita stringove (mogu biti imena i mora ih biti min. 10) i stvara vezanu listu elemenata sortiranih po abecedi.
+b) Elemente iz datoteke ubaciti u binarno stablo i ispisati ga na inorder način.
+
+
+************************************************************************************************************************************************
+Zad_6
+12.02.2013. Grupa 2
+
+
+Napisati program koji
+a) iz datoteke čita podatke (dva int, prvi je vrijednost a drugi prioritet (od 1- 5)) i sprema ih u red s prioritetom. Što je veći prioritet to je podatak bliže vrhu reda.
+b) Podaci unutar istog prioriteta moraju biti sortirani po veličini od najmanjeg prema najvećem.
+(Napomena: U datoteci treba biti najmanje 20 parova.)
+
+************************************************************************************************************************************************
+Zad_7
+27.02.2013. Grupa 1
+
+
+Napisati program kojim se
+a) Slučajnim uzorkom generira 100 brojeva iz opsega od 300 do 700, te ih sprema u binarno stablo pretraživanja. Zatim ispišemo to stablo u preorder načinu ispisa.
+b) Iz generiranog stabla pretraživanja izbrisati sve elemente koji su zapisani u proizvoljno definiranoj datoteci.
+
+************************************************************************************************************************************************
+Zad_8
+27.02.2013.  Grupa 2
+
+
+Napisati program kojim se
+a) Iz datoteke čitaju riječi i spremaju u vezanu listu na način da se riječi slažu po abecednom redu obrnutom od abecednog reda. Zatim ispisati tu vezanu listu.
+b) Iz generirane liste ispisati samo one riječi koje se nalaze zapisane u drugoj proizvoljnoj datoteci.
