@@ -1,7 +1,7 @@
 # Strukture-Podataka-Rjeseni-Ispiti
 
 Napomena:
-1. Zadatke raditi isključivo u svom branchu
+1. Zadatke raditi isključivo u svom branchub (provjeri branch s naredbom git branch -all i promijeni branch s git checkout)
 2. Za svaki zadatak napraviti zaseban VS projekt (preporuka koristiti VS 2010) koji će se nalaziti u lokalnom kloniranom direktoriju (prilikom pravljenja novog projekta "Lokacija:" treba biti ....\Strukture-Podataka-Rjeseni-Ispiti\)
 3. Svaki projekt imenovati Zadatak_"broj zadatka", pri čemu je "broj zadatka" redni broj zadatka u datoteci "Ispitni Zadatci.txt" -> broj treba biti u formatu 01, 02, 03 .. (drukčije neće biti poredani kako treba)
 
@@ -30,11 +30,19 @@ npr. git checkout Marko-Mijoc
 
 5. Commitovi smisleni i uredni
 
-git commit -m "smislena poruka"
+ git commit -m "smislena poruka"
 
 6. Spremanje promjena na remote repozitoriji (na GitHub)
 
 git push
+
+7. Novi lokalni branch
+
+ git checkout -b ime-brancha
+ 
+8. push-aj novi lokalni branch na GitHub
+
+ git push -u origin ime-brancha
 
 
 Ko nije ljubitelj git basah-a može koristiti: shift + lijevi klik mišom, zatim odabrati "open PowerShell window here"
