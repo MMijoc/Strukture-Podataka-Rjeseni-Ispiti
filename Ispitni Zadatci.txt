@@ -350,3 +350,6 @@ Zad_24
 Napisati program kojim se
 a) Iz datoteke čitaju riječi i spremaju u vezanu listu na način da se riječi slažu po abecednom redu obrnutom od abecednog reda. Zatim ispisati tu vezanu listu.
 b) Iz generirane liste ispisati samo one riječi koje se nalaze zapisane u drugoj proizvoljnoj datoteci.
+
+
+************************************************************************************************************************************************
