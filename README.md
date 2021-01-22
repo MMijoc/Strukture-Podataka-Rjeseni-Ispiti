@@ -5,9 +5,19 @@
 2. Za svaki zadatak napraviti zaseban VS projekt (preporuka koristiti VS 2010) koji će se nalaziti u lokalnom kloniranom direktoriju (prilikom pravljenja novog projekta "Lokacija:" treba biti ....\Strukture-Podataka-Rjeseni-Ispiti\)
 3. Svaki projekt imenovati Zadatak_"broj zadatka", pri čemu je "broj zadatka" redni broj zadatka u datoteci "Ispitni Zadatci.txt" -> broj treba biti u formatu 01, 02, 03 .. (drukčije neće biti poredani kako treba)
 
-	npr. Zadatak_02
+	>>> npr. Zadatak_02  
+	>>> ili Zadatak_21  
 	
-	ili Zadatak_21
+4. Svaki put kada se nastavlja raditi na projektu dobro je povući moguće dodatne promjene koje su se dogodile u mani branch-u (pri promjeni teksta zadatka, dodavanja novi zadataka ili tekstualnih datoteka iz koji se čita), to se radi preko naredbe **git pull**, pri čemu je potrebno biti u odgovarajućem branch-u (main)
+Da bi se ove promijene prenijele i na vlastiti branch potrebno je napravit: 
+>>> git checkout ime-tvog-brancha  
+>>> git merege main
+
+
+## Promjene u main branch-u
+Ako je potrebno ispraviti neku pogrešku, dodati novi zadatak ili slično to možemo napraviti unutar main brancha.  
+Potrebno je se prebaciti u main branch te nakon napravljenih promjena napraviti smislen commit, i push-at na GitHub;
+Promjene se u vlastiti branch (ako nisu napravljene u oba) mogu prebaciti u vlastiti branch pomoću naredbi navedenih iznad pod brojem 4.
 
 ## Naredbe koje možda zatrebaju:
 
@@ -28,7 +38,7 @@ git branch --all
 git checkout ime-brancha
 npr. git checkout Marko-Mijoc
 
-5. Commitovi smisleni i uredni
+5. Commitovi česti, smisleni i uredni
 
  git commit -m "smislena poruka"
 
