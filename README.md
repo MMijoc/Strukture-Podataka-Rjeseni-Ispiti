@@ -1,6 +1,6 @@
 # Strukture-Podataka-Rjeseni-Ispiti
 
-Napomena:
+## Napomena:
 1. Zadatke raditi isključivo u svom branchub (provjeri branch s naredbom git branch -all i promijeni branch s git checkout)
 2. Za svaki zadatak napraviti zaseban VS projekt (preporuka koristiti VS 2010) koji će se nalaziti u lokalnom kloniranom direktoriju (prilikom pravljenja novog projekta "Lokacija:" treba biti ....\Strukture-Podataka-Rjeseni-Ispiti\)
 3. Svaki projekt imenovati Zadatak_"broj zadatka", pri čemu je "broj zadatka" redni broj zadatka u datoteci "Ispitni Zadatci.txt" -> broj treba biti u formatu 01, 02, 03 .. (drukčije neće biti poredani kako treba)
@@ -9,7 +9,7 @@ Napomena:
 	
 	ili Zadatak_21
 
-Naredbe koje možda zatrebaju:
+## Naredbe koje možda zatrebaju:
 
 1. Napravi lokalnu kopiju repozitorija
 
@@ -36,11 +36,16 @@ npr. git checkout Marko-Mijoc
 
 git push
 
-7. Novi lokalni branch
+7. Dohvati promjene u main branchu (ako su dodani ili uređeni zadatci)
+NAPOMENA: pazit da se nalaziš u svom branchu, ako nisi prvo iskoristit: git checkout ime-tvog-brancha
+
+ git merege main
+
+8. Novi lokalni branch
 
  git checkout -b ime-brancha
  
-8. push-aj novi lokalni branch na GitHub
+9. push-aj novi lokalni branch na GitHub
 
  git push -u origin ime-brancha
 
