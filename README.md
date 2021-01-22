@@ -23,7 +23,7 @@ Promjene se u vlastiti branch (ako nisu napravljene u oba) mogu prebaciti u pomo
 ## Naredbe koje možda zatrebaju:
 
 1. Napravi lokalnu kopiju repozitorija  
-git clone https://github.com/MMijoc/Strukture-Podataka-Rjeseni-Ispiti.git
+**git clone https://github.com/MMijoc/Strukture-Podataka-Rjeseni-Ispiti.git**
 
 2. Trenutni branch  
 **git branch**
