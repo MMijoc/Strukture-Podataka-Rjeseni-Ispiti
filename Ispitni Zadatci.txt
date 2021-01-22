@@ -2,44 +2,41 @@ STRUKTURE PODATAKA (120)
 Ispitni zadatci:
 
 ************************************************************************************************************************************************
-Zad_1:
+Zadatak_01:
 1. ispitni rok 13. 2. 2020
 
-Napisati program koji iz datoteke (ime se unosi u programu) Cita podatke u binarno stablo za pretazivanje u kojeme se sortiraju po prezimenu, pa zatim po imenu osobe. Binarno stablo za pretazivanje je definirano strukturom:
 
+Napisati program koji iz datoteke (ime se unosi u programu) Čita podatke u binarno stablo za pretaživanje u kojeme se sortiraju po prezimenu, 
+pa zatim po imenu osobe. Binarno stablo za pretaživanje je definirano strukturom:
 
-struct person;
-typedef struct _person *Person Position;
+struct _person;
+typedef struct _person *PersonPosition;
 typedef struct _person {
 	char firstName[MAX_NAME];
 	char lastName[MAX_NAME];
 	Word word;
-	PersonPostion left;
+	PersonPosition left;
 	PersonPosition right;
 } Person;
 
-Pri tome Word word je clan strukture Person koja predstavlja glavu vezane liste, te je definirana kao:
+Pri tome Word word je član strukture Person koja predstavlja glavu vezane liste, te je definirana kao:
 
 struct _word;
-typedef struct *WordPosition;
+typedef struct _word *WordPosition;
 typedef struct _word {
 	char word[MAX_NAME];
 	WordPosition next;
-} Person;
+} Word;
 
-
-Podaci u datoteci su organizirani na nacin da prve dvije rijeci u retku predstavljaju ime prezime, dok ostatak rijci u retku predstavljaju recenicu te osobe.
-Recenicu je potrebno za svaku osobu upisati u vezanu listu Word i to:
+Podaci u datoteci su organizirani na način da prve dvije riječi u retku predstavljaju ime i prezime, dok ostatak rijči u retku predstavljaju rečenicu te osobe.
+Rečenicu je potrebno za svaku osobu upisati u vezanu listu Word i to:
 •vezana lista se formira u proizvoljnom rasporedu- za ocjenu 2;
 •lista se formira tako da rečenica ima smisla - za ocjenu S.
-Program ispisuje osobe i njihove recenice in order.
-
+Program ispisuje osobe i njihove rečenice in order.
 Na kraju programa potrebno je osloboditi svu dinamički rezerviranu memoriju.
 
-
-
 ************************************************************************************************************************************************
-Zad_2
+Zadatak_02
 2. ispitni rok 27.2.2020.
 
 
@@ -91,9 +88,8 @@ Za ocjenu 5:
 	* Studente iz koji zadovoljavaju uvjete za stipendiju u datoteku upisati od najvećeg prema
 	  najmanjem relativnom prosjeku.
 
-
 ************************************************************************************************************************************************
-Zad_3
+Zadatak_03
 29. kolovoza 2019.
 
 
@@ -102,7 +98,7 @@ Napisati program koji generira 20 slučajnih brojeva u opsegu od 20 - 50. Pri to
 Složiti elemente vezane liste od najvećeg prema najmanjem, ali se pri tome ne smije koristiti funkcija za sortiranje, već se treba iskoristiti raspored elemenata u vezanoj listi i samo prebacivati neparne elemente na odgovarajuće mjesto (od na većeg prema najmanjem). Ispisati listu.
 
 ************************************************************************************************************************************************
-Zad_4
+Zadatak_04
 
 
 Napisati program koji iz datoteke cita popis studenata i sprema ihu vezanu listu.
@@ -128,14 +124,14 @@ c) Iz sortirane liste kreirati hash tablicu sa zasebnim redovima od 8 (osam) mje
 NAPOMENA: Zatvoriti sve otvorene datoteke, pobrisati svu dinamički alociranu memoriju i mirnim putem prekinuti rad programa. Programski kod napisati koristentno, uredno te odvojeno u funkcije
 
 ************************************************************************************************************************************************
-Zad_5
+Zadatak_05
 3 ispitni rok - dodatni 10.9.2020
 
 Napisati program koji generira 30 slučajnih brojeve u opsegu od 120-150. Sve brojeve spremiti u vezanu listu tako da redoslijed brojeva u listi odgovara redoslijedu generiranja brojeva. Ispisati listu i nakon toga izbrisati iz liste sve vrijednosti koje se ponavljaju uz uvjet da u čvoru koji ostane u listi se zapiše koliko je ukupno bilo tih vrijednosti. Ispisati novu vezanu listu kao i broj ponavljanja svakog čvora.
 
 
 ************************************************************************************************************************************************
-Zad_6
+Zadatak_06
 
 Napisati program koji iz datoteke čita šifru artikla (string za koji je potrebno prostor alocirati dinamički) i količinu tog artikla i sprema ih u vezanu listu složenu po šifri. U programu postoji pet (5) takvih datoteka i za svaku je potrebno kreirati odvojenu vezanu listu. Nadalje u programu treba
 
@@ -146,7 +142,7 @@ c) Proširiti binarno stablo na način da svaki čvor ima i pokazivač na vezanu
 NAPOMENA: Zatvoriti sve otvorene datoteke, pobrisati svu dinamički alociranu memoriju i mirnim putem prekinuti rad programa. Programski kod napisati kozistentno, uredno te odvojeno u funkcije
 
 ************************************************************************************************************************************************
-Zad_7
+Zadatak_07
 izvanredni ispitni rok 22. rujna 2020.
 
 Napisati program koji generira 30 puta dva slučajna broja. Prvi broj je vrijednost i ona je u opsegu od 100 do 200, a drugi je prioritet u opsegu od 1 do 5. Te podatke se sprema u strukturu od koje se gradi red s prioritetom. Što je veći prioritet to je podatak bliže vrhu (početku) reda. Ispisati red.
@@ -156,7 +152,7 @@ Izmijeniti unos na način da podaci unutar istog prioriteta moraju biti sortiran
 ************************************************************************************************************************************************
 Primjeri ispita (s protala) 1 dio
 ************************************************************************************************************************************************
-Zad_8
+Zadatak_08
 1 ispitni rok 13.2.2014.
 
 
@@ -174,7 +170,7 @@ Potrebno je izračunati prosječnu duljinu svake riječi zapisane u binarnom sta
 Napisati program koji iz tako kreiranog binarnog stabla u vezanu listu puni samo one riječi koje su dulje od prosječne duljine svih riječi, te ispisati tu vezanu listu.
 
 ************************************************************************************************************************************************
-Zad_9
+Zadatak_09
 1 ispitni rok 13.2.2014.
 
 
@@ -183,7 +179,7 @@ Napisati program koji iz datoteke čita dio teksta, riječ po riječi unosi ih u
 Iz tako kreiranog reda kreirati dvije datoteke, u prvoj će se nalaziti riječi sa prioritetom=1, a u drugoj riječi s prioritetom=2; s tim da su te riječi u datoteci zapisane sortirane po abecedi.
 
 ************************************************************************************************************************************************
-Zad_10
+Zadatak_10
 2 ispitni rok 27.2.2014.
 
 
@@ -192,7 +188,7 @@ Napisati program koji iz datoteke čita dio teksta, riječ po riječi unosi u bi
 Iz binarnog stabla kreirati dvije datoteke, u prvoj se nalaze sve riječi koje počinju samoglasnikom, a u drugoj sve riječi koje počinju suglasnikom. Riječi zapisane u datotekama moraju biti sortirane po abecedi.
 
 ************************************************************************************************************************************************
-Zad_11
+Zadatak_11
 2 ispitni rok 27.2.2014.
 
 
@@ -201,7 +197,7 @@ Napisati program koji iz datoteke čita podatke o broju bodova koje je jedan stu
 U tako kreiranom binarnom stablu potrebno je za svakog od studenata izračunati i relativan broj bodova po formuli: relativan_broj_bodova=( broj_bodova/MAX(broj_bodova) ). Ispisati binarno stablo na "preorder" način.
 
 ************************************************************************************************************************************************
-Zad_12
+Zadatak_12
 2 ispitni rok 27.2.2014.
 
 
@@ -225,7 +221,7 @@ struct_ispit {
 Potrebno je ispisati koliko je studenata položilo svaki pojedini ispit (po nazivu ispita), te nabrojati koji su to studenti
 
 ************************************************************************************************************************************************
-Zad_13
+Zadatak_13
 3 ispitni rok 28.8.2014
 
 
@@ -236,7 +232,7 @@ a) Nakon toga potrebno je kreirati novu listu koja sadrži imena studenata koji 
 b) Nadopuniti zadatak pod a) tako da se ispiše nova vezana lista koja osim što sadrži imena studenata, sadrži i njihovu prosječnu ocjenu iz ta tri predmeta.
 
 ************************************************************************************************************************************************
-Zad_14
+Zadatak_14
 3 ispitni rok 28.8.2014.
 
 Napisati program koji generira 20 slučajnih brojeva iz opsega 100 - 150 i njih spremiti u vezanu listu i svakom od njih dodijeliti redni broj od 0-19.
@@ -255,13 +251,13 @@ Element:		103	145	106	125	111	134	121	149	...
 Ispisati te brojeve te novu listu s rednim brojevima.
 	
 ************************************************************************************************************************************************
-Zad_15
+Zadatak_15
 3 ispitni rok 11.9.2014.
 
 Napisati program koji generira slučajne brojeve u opsegu od 50-80. Ukoliko je generirani broj paran sprema se u vezanu listu parnih brojeva i to u padajućem redoslijedu (od najvećeg prema najmanjem), Ukoliko je broj neparan sprema se u vezanu listu neparnih brojeva, takoder u padajućem redoslijedu. Niti jedna vezana lista ne smije sadržavati dva ista elementa. Unos traje sve dok obje liste ne sadrže 10 clemenata. Treba ispisivati koji se broj generira i na kraju ispisati obje liste.
 
 ************************************************************************************************************************************************
-Zad_16
+Zadatak_16
 dekanski rok 23.9.2014.
 
 Napisati program koji iz dvije datoteke (jedna sadrži ocjenu 1. kolokvija,a druga ocjenu 2. kolokvija) kreira vezanu listu studenata koji su položili ispit i ta se nova vezana lista slaže po ocjenama. Način pretvorbe bodova u ocjenu je dan u tablici.
@@ -278,7 +274,7 @@ Bodovi			Ocjena
 ************************************************************************************************************************************************
 Primjeri ispita (s protala) 2 dio
 ************************************************************************************************************************************************
-Zad_17
+Zadatak_17
 15.02.2018. Grupa 1
 
 
@@ -287,14 +283,14 @@ a) Iz datoteke „drzave.txt“ čita popis država i njihov ID od pročitanih d
 b) Iz datoteke „gradovi.txt“ pročitati ime grada i ID države u kojoj se nalazi. Pronaći odgovarajuću državu u gornjoj listi, te dodati pročitani grad u stablo gradova te države. Za zadanu državu ispisati sve njene gradove po abecedi. – za 5
 
 ************************************************************************************************************************************************
-Zad_18
+Zadatak_18
 15.02.2018. Grupa 2
 
 
 Napisati program koji iz datoteke „text.txt“ čita zadani tekst. Od pročitanih riječi se gradi binarno stablo pretraživanja, s tim da ukoliko se pronađe riječ koja se već nalazi u stablu potrebno ju je dodati u vezanu listu istih riječi za određeni čvor. Ispisati stablo. Za odabranu riječ ispitat koliko se puta ponavlja.
 
 ************************************************************************************************************************************************
-Zad_19
+Zadatak_19
 izvanredni ispitni rok 26.9.2017.
 
 
@@ -305,7 +301,7 @@ Kod kreiranja listi pod a) i b) se ne smije koristiti malloc, već uzeti postoje
 U listama pod a) i b) ne smije biti duplih vrijednosti i vrijednosti moraju bit složene uzlaznim redoslijedom.
 
 ************************************************************************************************************************************************
-Zad_20
+Zadatak_20
 31. kolovoza 2017.
 
 
@@ -314,7 +310,7 @@ a) Potrebno je pronaći minimalnu i maksimalnu vrijednost, te iz njih izračunat
 b) Pronaći vrijednost u listi koja je najbliža srednjoj vrijednosti i nju postaviti kao root element binarnog stabla za pretraživanje. Nakon toga sve elemente iz liste prebaciti u stablo i gotovo stablo ispisati na level order način.
 
 ************************************************************************************************************************************************
-Zad_21
+Zadatak_21
 12.02.2013. Grupa 1
 
 
@@ -324,7 +320,7 @@ b) Elemente iz datoteke ubaciti u binarno stablo i ispisati ga na inorder način
 
 
 ************************************************************************************************************************************************
-Zad_22
+Zadatak_22
 12.02.2013. Grupa 2
 
 
@@ -334,7 +330,7 @@ b) Podaci unutar istog prioriteta moraju biti sortirani po veličini od najmanje
 (Napomena: U datoteci treba biti najmanje 20 parova.)
 
 ************************************************************************************************************************************************
-Zad_23
+Zadatak_23
 27.02.2013. Grupa 1
 
 
@@ -343,7 +339,7 @@ a) Slučajnim uzorkom generira 100 brojeva iz opsega od 300 do 700, te ih sprema
 b) Iz generiranog stabla pretraživanja izbrisati sve elemente koji su zapisani u proizvoljno definiranoj datoteci.
 
 ************************************************************************************************************************************************
-Zad_24
+Zadatak_24
 27.02.2013.  Grupa 2
 
 
