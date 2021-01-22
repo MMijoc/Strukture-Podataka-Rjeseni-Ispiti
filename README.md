@@ -18,7 +18,7 @@ Da bi se ove promijene prenijele i na vlastiti branch potrebno je napravit:
 ## Promjene u main branch-u
 Ako je potrebno ispraviti neku pogrešku, dodati novi zadatak ili slično to možemo napraviti unutar main brancha.  
 Potrebno je se prebaciti u main branch te nakon napravljenih promjena napraviti smislen commit, i push-at na GitHub;
-Promjene se u vlastiti branch (ako nisu napravljene u oba) mogu prebaciti u vlastiti branch pomoću naredbi navedenih iznad pod brojem 4.
+Promjene se u vlastiti branch (ako nisu napravljene u oba) mogu prebaciti u pomoću naredbi navedenih iznad pod brojem 4.
 
 ## Naredbe koje možda zatrebaju:
 
