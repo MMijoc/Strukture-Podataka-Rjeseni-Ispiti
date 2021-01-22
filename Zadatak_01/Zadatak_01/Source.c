@@ -27,7 +27,7 @@ typedef struct _word {
 
 Podaci u datoteci su organizirani na način da prve dvije riječi u retku predstavljaju ime i prezime, dok ostatak rijči u retku predstavljaju rečenicu te osobe.
 Rečenicu je potrebno za svaku osobu upisati u vezanu listu Word i to:
-•vezana lista se formira u proizvoljnom rasporedu- za ocjenu 2;
+•vezana lista se formira u proizvoljnom rasporedu - za ocjenu 2;
 •lista se formira tako da rečenica ima smisla - za ocjenu S.
 Program ispisuje osobe i njihove rečenice in order.
 
@@ -65,6 +65,9 @@ typedef struct _person {
 } Person;
 
 char *GetFileContent(char *fileName);
+Word *CreateWord(char *word);
+Person *CreatePerson(char *firstName, char *lastName);
+
 
 int main()
 {
@@ -72,15 +75,16 @@ int main()
 	char fileName[BUFFER_LENGTH] = {'\0'};
 	char *fileContent = NULL;
 	FILE *fp = NULL;
+	
+	char *tmp = NULL;
 
+	//unos imena datoteke sa konzole
 	strcpy(fileName, "Zad_1.txt");
 	fileContent = GetFileContent(fileName);
-	printf("%s\n", fileContent);
 
+	if (fileContent)
+		printf("%s\n", fileContent);
 
-
-
-	system("pause");
 	free(fileContent);
 	return SUCCESS;
 }
@@ -106,7 +110,6 @@ char *GetFileContent(char *fileName)
 		return NULL;
 	}
 
-
 	fseek(fp, 0, SEEK_END);
 	length = ftell(fp);
 
@@ -126,6 +129,49 @@ char *GetFileContent(char *fileName)
 		return NULL;
 	}
 
-
 	return fileContent;
+}
+
+Word *CreateWord(char *word)
+{
+	Word *newWord = NULL;
+
+	if (word == NULL || strlen(word) == 0) {
+		perror("Invalid function argument");
+		return NULL;
+	}
+
+	newWord = (Word *)malloc(sizeof(Word));
+	if (newWord == NULL) {
+		perror("");
+		return NULL;
+	}
+
+	strncpy(newWord->word, word, MAX_NAME - 1);
+	newWord->next = NULL;
+
+	return newWord;
+}
+
+Person *CreatePerson(char *firstName, char *lastName)
+{
+	Person *newPerson = NULL;
+
+	if ( firstName == NULL || lastName == NULL || strlen(firstName) == 0 || strlen(lastName) == 0 ) {
+		printf("Invalid function argument");
+		return NULL;
+	}
+
+	newPerson = (Person *)malloc(sizeof(Person));
+	if (NULL == newPerson) {
+		perror("");
+		return NULL;
+	}
+	
+	strncpy(newPerson->firstName, firstName, MAX_NAME);
+	strncpy(newPerson->lastName, lastName, MAX_NAME);
+	strncpy(newPerson->word.word, "HEAD", MAX_NAME);
+	newPerson->word.next = NULL;
+
+	return newPerson;
 }
