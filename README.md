@@ -22,42 +22,33 @@ Promjene se u vlastiti branch (ako nisu napravljene u oba) mogu prebaciti u vlas
 
 ## Naredbe koje možda zatrebaju:
 
-1. Napravi lokalnu kopiju repozitorija
-
+1. Napravi lokalnu kopiju repozitorija  
 git clone https://github.com/MMijoc/Strukture-Podataka-Rjeseni-Ispiti.git
 
-2. Trenutni branch
-
+2. Trenutni branch  
 **git branch**
 
-3. Svi branch-ovi, bijeli su lokani - na računalu, crveni su na GitHub-u, zeleni je trenutni brnach
-
+3. Svi branch-ovi, bijeli su lokani - na računalu, crveni su na GitHub-u, zeleni je trenutni brnach  
 **git branch --all**
 
-4. Promijeni brnach
-
+4. Promijeni brnach  
 **git checkout ime-brancha**
 npr. git checkout Marko-Mijoc
 
-5. Commitovi česti, smisleni i uredni
-
+5. Commitovi česti, smisleni i uredni  
  **git commit -m "smislena poruka"**
 
-6. Spremanje promjena na remote repozitoriji (na GitHub)
-
+6. Spremanje promjena na remote repozitoriji (na GitHub)  
 **git push**
 
 7. Dohvati promjene u main branchu (ako su dodani ili uređeni zadatci)
-NAPOMENA: pazit da se nalaziš u svom branchu, ako nisi prvo iskoristit: git checkout ime-tvog-brancha
-
+NAPOMENA: pazit da se nalaziš u svom branchu, ako nisi prvo iskoristit: git checkout ime-tvog-brancha  
  **git merege main**
 
-8. Novi lokalni branch
-
+8. Novi lokalni branch  
  **git checkout -b ime-brancha**
  
-9. push-aj novi lokalni branch na GitHub
-
+9. push-aj novi lokalni branch na GitHub  
  **git push -u origin ime-brancha**
 
 
