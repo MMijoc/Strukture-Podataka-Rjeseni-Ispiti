@@ -39,10 +39,6 @@ Na kraju programa potrebno je osloboditi svu dinamički rezerviranu memoriju.
 #include <stdlib.h>
 #include <string.h>
 
-//For debuginig memory leaks
-#define _CRTDBG_MAP_ALLOC
-#include <crtdbg.h>
-
 #define SUCCESS 0
 #define FAILURE (-1)
 #define TRUE 1
@@ -86,12 +82,6 @@ int main()
 	Person *root = NULL;
 	int argTaken = 0;
 
-
-	//For debuginig memory leaks
-	_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
-
-
-
 	while (argTaken != 1) {
 		printf("Please enter the name of the file you want to read: ");
 		fgets(buffer, BUFFER_LENGTH, stdin);
@@ -101,7 +91,6 @@ int main()
 	root = BuildTree(fileName);
 	PrintTreeInOrder(root);
 	puts("");
-
 
 	DeleteBinTree(root);
 	return SUCCESS;
