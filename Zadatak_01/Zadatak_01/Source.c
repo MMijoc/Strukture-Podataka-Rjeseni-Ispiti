@@ -28,7 +28,7 @@ typedef struct _word {
 Podaci u datoteci su organizirani na način da prve dvije riječi u retku predstavljaju ime i prezime, dok ostatak rijči u retku predstavljaju rečenicu te osobe.
 Rečenicu je potrebno za svaku osobu upisati u vezanu listu Word i to:
 •vezana lista se formira u proizvoljnom rasporedu - za ocjenu 2;
-•lista se formira tako da rečenica ima smisla - za ocjenu S.
+•lista se formira tako da rečenica ima smisla - za ocjenu 5.
 Program ispisuje osobe i njihove rečenice in order.
 
 Na kraju programa potrebno je osloboditi svu dinamički rezerviranu memoriju.
@@ -64,72 +64,26 @@ typedef struct _person {
 	PersonPosition right;
 } Person;
 
-char *GetFileContent(char *fileName);
 Word *CreateWord(char *word);
+int InsertWordAtHead(Word *head, char *word);
+int PrintList(Word *head);
 Person *CreatePerson(char *firstName, char *lastName);
-
+Person *BuildTree(char *fileName);
+Person *InsertPerson(Person *currentNode, Person *nodeToInsert);
+int Insert(Person **root, char *buffer);
+int PrintTreeInOrder(Person *current);
 
 int main()
 {
-	char tmpBuffer[BUFFER_LENGTH] = {'\0'};
 	char fileName[BUFFER_LENGTH] = {'\0'};
-	char *fileContent = NULL;
-	FILE *fp = NULL;
-	
-	char *tmp = NULL;
+	Person *root = NULL;
 
 	//unos imena datoteke sa konzole
 	strcpy(fileName, "Zad_1.txt");
-	fileContent = GetFileContent(fileName);
+	root = BuildTree(fileName);
+	PrintTreeInOrder(root);
 
-	if (fileContent)
-		printf("%s\n", fileContent);
-
-	free(fileContent);
 	return SUCCESS;
-}
-
-char *GetFileContent(char *fileName)
-{
-	FILE *fp = NULL;
-	char *fileContent = NULL;
-	size_t length = 0;
-	size_t bytesRead = 0;
-
-	if (fileName == NULL || strlen(fileName) == 0) {
-		perror("Invalid function argument");
-		return NULL;
-	}
-
-	if (strchr(fileName, '.') == NULL)
-		strcat(fileName, ".txt");
-
-	fp = fopen(fileName, "rb");
-	if (!fp) {
-		perror("ERROR");
-		return NULL;
-	}
-
-	fseek(fp, 0, SEEK_END);
-	length = ftell(fp);
-
-	fileContent = (char *)calloc(length + 1, sizeof(char));
-	if (!fileContent) {
-		perror("ERROR");
-		return NULL;
-	}
-
-	fseek(fp, 0, SEEK_SET);
-	bytesRead = fread(fileContent, 1, length, fp);
-	fclose(fp);
-	
-	if (bytesRead != length) {
-		perror("An error occured while reading the file!");
-		free(fileContent);
-		return NULL;
-	}
-
-	return fileContent;
 }
 
 Word *CreateWord(char *word)
@@ -153,6 +107,30 @@ Word *CreateWord(char *word)
 	return newWord;
 }
 
+int InsertWordAtHead(Word *head, char *word)
+{
+	Word *newWord = NULL;
+
+	newWord = CreateWord(word);
+	if (!newWord) return FAILURE;
+
+	newWord->next = head->next;
+	head->next = newWord;
+
+	return SUCCESS;
+}
+
+int PrintList(Word *head)
+{
+	Word *tmp = head->next;
+	while (tmp) {
+		printf(" %s", tmp->word);
+		tmp = tmp->next;
+	}
+
+	return SUCCESS;
+}
+
 Person *CreatePerson(char *firstName, char *lastName)
 {
 	Person *newPerson = NULL;
@@ -173,5 +151,104 @@ Person *CreatePerson(char *firstName, char *lastName)
 	strncpy(newPerson->word.word, "HEAD", MAX_NAME);
 	newPerson->word.next = NULL;
 
+	newPerson->left = NULL;
+	newPerson->right = NULL;
+
 	return newPerson;
+}
+
+Person *BuildTree(char *fileName)
+{
+	Person *root = NULL;
+	FILE *fp = NULL;
+	char buffer[BUFFER_LENGTH] = {'\0'};
+
+	if (fileName == NULL || strlen(fileName) == 0) {
+		perror("Invalid function argument");
+		return NULL;
+	}
+
+	if (strchr(fileName, '.') == NULL)
+		strcat(fileName, ".txt");
+
+	fp = fopen(fileName, "rb");
+	if (!fp) {
+		perror("ERROR");
+		return NULL;
+	}
+	
+	while (fgets(buffer, BUFFER_LENGTH, fp)) {
+		Insert(&root, buffer);
+		memset(buffer, '\0', BUFFER_LENGTH);
+	}
+
+	fclose(fp);
+	return root;
+}
+
+int Insert(Person **root, char *buffer)
+{
+	int n = 0;
+	int argTaken = 0;
+	char firstName[MAX_NAME] = {'\0'};
+	char lastName[MAX_NAME] = {'\0'};
+	char word[BUFFER_LENGTH] = {'\0'};
+	Person *newPerson = NULL;
+
+	argTaken = sscanf(buffer, "%s %s %n", firstName, lastName, &n);
+	if (argTaken != 2) return FAILURE;
+	buffer += n;
+
+	newPerson = CreatePerson(firstName, lastName);
+	if (!newPerson) return FAILURE;
+
+	while (argTaken > 0) {
+		argTaken = sscanf(buffer, "%s %n", word, &n);
+		if (argTaken == 1) {
+			InsertWordAtHead(&newPerson->word, word);
+			buffer += n;
+		}
+	}
+
+	*root = InsertPerson(*root, newPerson);
+	return SUCCESS;
+}
+
+Person *InsertPerson(Person *currentNode, Person *nodeToInsert)
+{
+	if (NULL == currentNode) {
+		return nodeToInsert;
+
+	} else if (_stricmp(currentNode->lastName, nodeToInsert->lastName) > 0) {
+		currentNode->left = InsertPerson(currentNode->left, nodeToInsert);
+
+	} else if (_stricmp(currentNode->lastName, nodeToInsert->lastName) < 0) {
+		currentNode->right = InsertPerson(currentNode->right, nodeToInsert);
+	
+	} else {
+	
+		if (_stricmp(currentNode->firstName, nodeToInsert->firstName) > 0) {
+			currentNode->left = InsertPerson(currentNode->left, nodeToInsert);
+
+		} else if (_stricmp(currentNode->firstName, nodeToInsert->firstName) < 0) {
+			currentNode->right = InsertPerson(currentNode->right, nodeToInsert);
+
+		} else {
+			printf("Person with the sam name and last name already exits");
+		}
+
+	}
+
+	return currentNode;
+}
+
+int PrintTreeInOrder(Person *current)
+{
+	if (current == NULL) return SUCCESS;
+	
+	PrintTreeInOrder(current->left);
+	printf("\n%-16s %-16s", current->firstName, current->lastName);
+	PrintList(&current->word);
+	PrintTreeInOrder(current->right);
+	return SUCCESS;
 }
