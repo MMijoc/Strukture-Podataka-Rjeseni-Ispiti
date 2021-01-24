@@ -39,6 +39,10 @@ Na kraju programa potrebno je osloboditi svu dinamički rezerviranu memoriju.
 #include <stdlib.h>
 #include <string.h>
 
+//For debuginig memory leaks
+#define _CRTDBG_MAP_ALLOC
+#include <crtdbg.h>
+
 #define SUCCESS 0
 #define FAILURE (-1)
 #define TRUE 1
@@ -72,17 +76,34 @@ Person *BuildTree(char *fileName);
 Person *InsertPerson(Person *currentNode, Person *nodeToInsert);
 int Insert(Person **root, char *buffer);
 int PrintTreeInOrder(Person *current);
+int DeleteBinTree(Person *node);
+int DeleteWordList(Word *head);
 
 int main()
 {
 	char fileName[BUFFER_LENGTH] = {'\0'};
+	char buffer[BUFFER_LENGTH] = {'\0'};
 	Person *root = NULL;
+	int argTaken = 0;
 
-	//unos imena datoteke sa konzole
-	strcpy(fileName, "Zad_1.txt");
+
+	//For debuginig memory leaks
+	_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
+
+
+
+	while (argTaken != 1) {
+		printf("Please enter the name of the file you want to read: ");
+		fgets(buffer, BUFFER_LENGTH, stdin);
+		argTaken = sscanf(buffer, "%s", fileName);
+	}
+
 	root = BuildTree(fileName);
 	PrintTreeInOrder(root);
+	puts("");
 
+
+	DeleteBinTree(root);
 	return SUCCESS;
 }
 
@@ -250,5 +271,32 @@ int PrintTreeInOrder(Person *current)
 	printf("\n%-16s %-16s", current->firstName, current->lastName);
 	PrintList(&current->word);
 	PrintTreeInOrder(current->right);
+	return SUCCESS;
+}
+
+int DeleteBinTree(Person *node)
+{
+	if (NULL == node) return SUCCESS;
+
+	DeleteBinTree(node->left);
+	DeleteBinTree(node->right);
+	DeleteWordList(&node->word);
+	free(node);
+
+	return SUCCESS;
+}
+
+int DeleteWordList(Word *head)
+{
+	Word *toFree = NULL;
+	Word *tmp = head->next;
+
+	while(tmp) {
+		toFree = tmp;
+		tmp = tmp->next;
+		free(toFree);
+	}
+
+	head->next = NULL;
 	return SUCCESS;
 }
