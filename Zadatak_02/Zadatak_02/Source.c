@@ -36,7 +36,7 @@ Tada čvor vezane liste treba sadržavati podatke:
 {
 	firstName: Ivo
 	lastName: Matić
-	totalEcts: 38
+	total: 38
 	totalEcts: 9
 	next: ...
 }
@@ -66,10 +66,141 @@ Za ocjenu 5:
 #define TRUE 1
 #define FALSE 0
 
+#define MAX_NAME 128
+#define BUFFER_LENGTH 1024
+#define TABLE_SIZE 23
+#define CHARS_HASHIN 3
+
+struct _student;
+typedef struct _student *StudentPosition;
+typedef struct _student{
+	char firstName[MAX_NAME];
+	char lastName[MAX_NAME];
+	int total;
+	int totalEcts;
+	StudentPosition next;
+} Student;
+
+typedef Student HashTable;
+
+HashTable *CreateHashTable(int tableSize);
+int InitHashTable(HashTable *table, int tableSize);
+int FreeHashTable(HashTable *table, int tableSize);
+int Hash(char *key1, char *key2, int tableSize);
+int HashTableInsert(HashTable *table, int tableSize, Student *toInsert);
+//Student *HashTableLookup(HashTable *table, int tableSize, char *firstName, char *lastName);
+Student *CreateNewStudent(char *firstName, char *lastName, int mark, int ects);
+int InsertToList(Student *listHead, Student *toInsert);
+int FreeList(Student *listHead);
+int BuildHashTableFromFile(char *fileName, HashTable *table, int tableSize);
+int PrintHashTableToFile(HashTable *table, int tableSize);
+
 int main()
 {
-	printf("Hello world\n");
+	char fileName[BUFFER_LENGTH]= { '\0' };
+	HashTable *hTable = NULL;
 
+
+	hTable = CreateHashTable(TABLE_SIZE);
+
+	strcpy(fileName, "Zad_2");
+	//BuildHashTableFromFile(fileName, hTable, TABLE_SIZE);
+	//PrintHashTableToFile(hTable, TABLE_SIZE);
+
+
+
+
+
+	//FreeHashTable(hTable, TABLE_SIZE);
+	return SUCCESS;
+}
+
+HashTable *CreateHashTable(int tableSize)
+{
+
+	return NULL;//uhu hu
+}
+
+int InitHashTable(HashTable *table, int tableSize)
+{
+	return SUCCESS;
+}
+
+int FreeHashTable(HashTable *table, int tableSize)
+{
+
+
+	return SUCCESS;
+}
+int HashTableInsert(HashTable *table, int tableSize, Student *toInsert)
+{
+
+	return SUCCESS;
+}
+
+Student *CreateNewStudent(char *firstName, char *lastName, int mark, int ects)
+{
+	Student *newStudent = NULL;
+
+	if (firstName == NULL || lastName == NULL ||strlen(firstName) == 0 ||strlen(lastName) == 0) {
+		fprintf(stderr, "\n%s", "Invalid functions paramaters");
+		return NULL;
+	}
+
+
+	newStudent = (Student *)malloc(sizeof(Student));
+	if (!newStudent)  {
+		perror("ERROR");
+		return NULL;
+	}
+
+	strncpy(newStudent->firstName, firstName, MAX_NAME);
+	strncpy(newStudent->lastName, lastName, MAX_NAME);
+	newStudent->total = mark * ects;
+	newStudent->totalEcts = ects;
+	newStudent->next = NULL;
+
+	return newStudent;
+}
+
+int Hash(char *key1, char *key2, int tableSize)
+{
+	int hashValue = 0;
+	int i = 0;
+
+	if (key1 == NULL ||key2 == NULL || strlen(key1) == 0 || strlen(key2) == 0) {
+		fprintf(stderr, "\n%s", "Invalid functions paramaters");
+		return FAILURE;
+	}
+
+	for (i = 0; i < CHARS_HASHIN && key1[i] != '\0'; i++) {
+		hashValue += key1[i];
+	}
+
+	for (i = 0; i < CHARS_HASHIN && key2[i] != '\0'; i++) {
+		hashValue += key2[i];
+	}
+
+	return hashValue;
+}
+
+int InsertToList(Student *listHead, Student *toInsert)
+{
+	return SUCCESS;
+}
+
+int FreeList(Student *listHead)
+{
+	return SUCCESS;
+}
+
+int BuildHashTableFromFile(char *fileName, HashTable *table, int tableSize)
+{
+	return SUCCESS;
+}
+
+int PrintHashTableToFile(HashTable *table, int tableSize)
+{
 
 	return SUCCESS;
 }
