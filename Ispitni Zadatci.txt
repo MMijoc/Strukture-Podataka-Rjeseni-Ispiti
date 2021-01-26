@@ -47,8 +47,9 @@ Napisati program koji učitava podatke u hash tablicu dužine 23 i pri tome:
 	* Ulazni podaci iz datoteke se raspršuju na način da se zbroje ASCII vrijednosti prva tri slova
 	  imena i prezimena.
 	* Svaka vezana lista je sortirana po prezimenu, zatim po imenu studenata
-	* Ukoliko se pojavi student s već postojećim imenom i prezimenom ne uosi se ponovo
+	* Ukoliko se pojavi student s već postojećim imenom i prezimenom ne unosi se ponovo
 	* Čvor vezane liste je definiran sljedećim poljima:
+
 				struct _student;
 				typedef struct _student *StudentPosition;
 				typedef struct _student{
@@ -58,12 +59,14 @@ Napisati program koji učitava podatke u hash tablicu dužine 23 i pri tome:
 					int totalEcts;
 					StudentPosition next;
 				} Student;
+
 Varijabla total je suma umnožaka ocjena s pripadajućim ECTS-om, a totalEcts je suma svih ECTS-ova.
+
 Npr. ukoliko su ulazni podaci za studenta Ivu Matića:
 (ime)   (prezime)   (ocjena)    (ECTS)
 ---------------------------------------------------------
 ---------------------------------------------------------
-Ivo     Matića          4         7
+Ivo	Matića          4         7
 Ivo     Matića          5         2
 ...
 Tada čvor vezane liste treba sadržavati podatke:
