@@ -29,7 +29,7 @@ Npr. ukoliko su ulazni podaci za studenta Ivu Matića:
 (ime)   (prezime)   (ocjena)    (ECTS)
 ---------------------------------------------------------
 ---------------------------------------------------------
-Ivo	Matića          4         7
+Ivo     Matića          4         7
 Ivo     Matića          5         2
 ...
 Tada čvor vezane liste treba sadržavati podatke:
@@ -60,6 +60,12 @@ Za ocjenu 5:
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
+
+
+
+//For debugging memory leaks
+#define _CRTDBG_MAP_ALLOC
+#include <crtdbg.h>
 
 #define SUCCESS 0
 #define FAILURE (-1)
@@ -94,6 +100,7 @@ int InsertToList(Student *listHead, Student *toInsert);
 int FreeList(Student *listHead);
 int BuildHashTableFromFile(char *fileName, HashTable *table, int tableSize);
 int PrintHashTableToFile(HashTable *table, int tableSize);
+int PrintList(Student *listHead);
 
 int main()
 {
@@ -101,39 +108,75 @@ int main()
 	HashTable *hTable = NULL;
 
 
+	//For debugging memory leaks
+	_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
+
 	hTable = CreateHashTable(TABLE_SIZE);
+	if (hTable == NULL) return FAILURE;
 
 	strcpy(fileName, "Zad_2");
-	//BuildHashTableFromFile(fileName, hTable, TABLE_SIZE);
-	//PrintHashTableToFile(hTable, TABLE_SIZE);
+	BuildHashTableFromFile(fileName, hTable, TABLE_SIZE);
+	PrintHashTableToFile(hTable, TABLE_SIZE);
 
-
-
-
-
-	//FreeHashTable(hTable, TABLE_SIZE);
+	FreeHashTable(hTable, TABLE_SIZE);
 	return SUCCESS;
 }
 
 HashTable *CreateHashTable(int tableSize)
 {
+	HashTable *newTable = NULL;
 
-	return NULL;//uhu hu
+	if (tableSize <= 0) {
+		fprintf(stderr, "\n%s", "Invalid functions paramaters");
+		return NULL;
+	}
+
+
+	newTable = (HashTable *)malloc(tableSize * sizeof(HashTable));
+	if (!newTable) {
+		perror("ERROR");
+		return NULL;
+	}
+
+	InitHashTable(newTable, tableSize);
+
+	return newTable;
 }
 
 int InitHashTable(HashTable *table, int tableSize)
 {
+	int i = 0;
+
+	for (i = 0; i < tableSize; i++) {
+		strncpy(table[i].firstName, "HEAD", MAX_NAME);
+		strncpy(table[i].lastName, "HEAD", MAX_NAME);
+		table[i].total = -1;
+		table[i].totalEcts = -1;
+		table[i].next = NULL;
+	}
+
 	return SUCCESS;
 }
 
 int FreeHashTable(HashTable *table, int tableSize)
 {
+	int i = 0;
 
+	for (i = 0; i < tableSize; i++)
+		FreeList(table[i].next);
 
+	free(table);
 	return SUCCESS;
 }
+
 int HashTableInsert(HashTable *table, int tableSize, Student *toInsert)
 {
+	int hash = -1;
+
+	hash = Hash(toInsert->firstName, toInsert->lastName, tableSize);
+	if (hash < 0) return FAILURE;
+
+	InsertToList(&(table[hash]), toInsert);
 
 	return SUCCESS;
 }
@@ -168,7 +211,7 @@ int Hash(char *key1, char *key2, int tableSize)
 	int hashValue = 0;
 	int i = 0;
 
-	if (key1 == NULL ||key2 == NULL || strlen(key1) == 0 || strlen(key2) == 0) {
+	if (key1 == NULL || key2 == NULL || strlen(key1) == 0 || strlen(key2) == 0) {
 		fprintf(stderr, "\n%s", "Invalid functions paramaters");
 		return FAILURE;
 	}
@@ -181,26 +224,113 @@ int Hash(char *key1, char *key2, int tableSize)
 		hashValue += key2[i];
 	}
 
-	return hashValue;
+	return hashValue % tableSize;
 }
 
 int InsertToList(Student *listHead, Student *toInsert)
 {
+	Student *tmp = NULL;
+
+	if (listHead == NULL || toInsert == NULL) {
+		fprintf(stderr, "\n%s", "Invalid functions paramaters");
+		return FAILURE;
+	}
+
+	tmp = listHead;
+
+	while (tmp->next != NULL && _stricmp(tmp->next->lastName, toInsert->lastName) < 0) 
+		tmp = tmp->next;
+
+	while (tmp->next != NULL && _stricmp(tmp->next->lastName, toInsert->lastName) == 0 && _stricmp(tmp->next->firstName, toInsert->firstName) < 0) 
+		tmp = tmp->next;
+
+
+
+	if (tmp->next != NULL && _stricmp(toInsert->lastName, tmp->next->lastName) == 0 && _stricmp(toInsert->firstName, tmp->next->firstName) == 0) {
+		tmp->next->total += toInsert->total;
+		tmp->next->totalEcts += toInsert->totalEcts;
+		free(toInsert);
+		return SUCCESS;
+	}
+
+	toInsert->next = tmp->next;
+	tmp->next = toInsert;
+
 	return SUCCESS;
 }
 
 int FreeList(Student *listHead)
 {
+	if (listHead == NULL) return SUCCESS;
+
+	FreeList(listHead->next);
+	free(listHead);
+
 	return SUCCESS;
 }
 
 int BuildHashTableFromFile(char *fileName, HashTable *table, int tableSize)
 {
+	char buffer[BUFFER_LENGTH] = { '\0' };
+	char firstName[MAX_NAME] = { '\0' };
+	char lastName[MAX_NAME] = { '\0' };
+	int mark = 0;
+	int ects = 0;
+	int argTaken = 0;
+	FILE *fp = NULL;
+
+	if (!fileName || strlen(fileName) == 0 || !table || tableSize <= 0) {
+		fprintf(stderr, "\n%s", "Invalid functions paramaters");
+		return FAILURE;
+	}
+
+	if (strchr(fileName, '.') == NULL)
+		strcat(fileName, ".txt");
+
+	fp = fopen(fileName, "r");
+	if (!fp) {
+		perror("ERROR");
+		return FAILURE;
+	}
+
+	while (!feof(fp)) {
+		fgets(buffer, BUFFER_LENGTH, fp);
+		argTaken = sscanf(buffer, "%s %s %d %d", firstName, lastName, &mark, &ects);
+		if (argTaken != 4) {
+			fprintf(stderr, "\n%s\n\"%s\"", "Following line was dicarded because it could not be read:", buffer);
+			continue;
+		}
+
+		HashTableInsert(table, tableSize, CreateNewStudent(firstName, lastName, mark, ects));
+	
+	}
+
+	fclose(fp);
 	return SUCCESS;
 }
 
 int PrintHashTableToFile(HashTable *table, int tableSize)
 {
+	int i = 0;
+	for (i = 0; i < tableSize; i++) {
+		printf("\n\n\n%d:",i);
+		PrintList(&table[i]);
+	}
+	puts("");
+
+	return SUCCESS;
+}
+
+int PrintList(Student *listHead) 
+{
+	Student *tmp = NULL;
+
+	tmp = listHead->next;
+
+	while (tmp) {
+		printf("\n\t%-16s %-16s %4d %4d", tmp->firstName, tmp->lastName, tmp->total, tmp->totalEcts);
+		tmp = tmp->next;
+	}
 
 	return SUCCESS;
 }
