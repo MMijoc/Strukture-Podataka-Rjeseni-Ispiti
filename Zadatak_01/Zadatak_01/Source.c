@@ -245,6 +245,7 @@ Person *InsertPerson(Person *currentNode, Person *nodeToInsert)
 
 		} else {
 			printf("Person with the sam name and last name already exits");
+			free(nodeToInsert);
 		}
 
 	}
