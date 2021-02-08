@@ -94,28 +94,31 @@ int InitHashTable(HashTable *table, int tableSize);
 int FreeHashTable(HashTable *table, int tableSize);
 int Hash(char *key1, char *key2, int tableSize);
 int HashTableInsert(HashTable *table, int tableSize, Student *toInsert);
-//Student *HashTableLookup(HashTable *table, int tableSize, char *firstName, char *lastName);
 Student *CreateNewStudent(char *firstName, char *lastName, int mark, int ects);
 int InsertToList(Student *listHead, Student *toInsert);
 int FreeList(Student *listHead);
 int BuildHashTableFromFile(char *fileName, HashTable *table, int tableSize);
 int PrintHashTableToFile(HashTable *table, int tableSize);
-int PrintList(Student *listHead);
+int PrintListToFileInternal(Student *listHead, FILE *fp);
+int GetNumber(char *message);
+int PrintMenu();
 
-int main()
+int main()	
 {
 	char fileName[BUFFER_LENGTH]= { '\0' };
 	HashTable *hTable = NULL;
 
-
 	//For debugging memory leaks
 	_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
+
+
 
 	hTable = CreateHashTable(TABLE_SIZE);
 	if (hTable == NULL) return FAILURE;
 
-	strcpy(fileName, "Zad_2");
+	strcpy(fileName, "Zad_2.txt");
 	BuildHashTableFromFile(fileName, hTable, TABLE_SIZE);
+
 	PrintHashTableToFile(hTable, TABLE_SIZE);
 
 	FreeHashTable(hTable, TABLE_SIZE);
@@ -181,7 +184,7 @@ int HashTableInsert(HashTable *table, int tableSize, Student *toInsert)
 	return SUCCESS;
 }
 
-Student *CreateNewStudent(char *firstName, char *lastName, int mark, int ects)
+Student *CreateNewStudent(char *firstName, char *lastName, int total, int totalEcts)
 {
 	Student *newStudent = NULL;
 
@@ -199,8 +202,8 @@ Student *CreateNewStudent(char *firstName, char *lastName, int mark, int ects)
 
 	strncpy(newStudent->firstName, firstName, MAX_NAME);
 	strncpy(newStudent->lastName, lastName, MAX_NAME);
-	newStudent->total = mark * ects;
-	newStudent->totalEcts = ects;
+	newStudent->total = total;
+	newStudent->totalEcts = totalEcts;
 	newStudent->next = NULL;
 
 	return newStudent;
@@ -243,8 +246,6 @@ int InsertToList(Student *listHead, Student *toInsert)
 
 	while (tmp->next != NULL && _stricmp(tmp->next->lastName, toInsert->lastName) == 0 && _stricmp(tmp->next->firstName, toInsert->firstName) < 0) 
 		tmp = tmp->next;
-
-
 
 	if (tmp->next != NULL && _stricmp(toInsert->lastName, tmp->next->lastName) == 0 && _stricmp(toInsert->firstName, tmp->next->firstName) == 0) {
 		tmp->next->total += toInsert->total;
@@ -301,7 +302,7 @@ int BuildHashTableFromFile(char *fileName, HashTable *table, int tableSize)
 			continue;
 		}
 
-		HashTableInsert(table, tableSize, CreateNewStudent(firstName, lastName, mark, ects));
+		HashTableInsert(table, tableSize, CreateNewStudent(firstName, lastName, mark * ects, ects));
 	
 	}
 
@@ -311,26 +312,116 @@ int BuildHashTableFromFile(char *fileName, HashTable *table, int tableSize)
 
 int PrintHashTableToFile(HashTable *table, int tableSize)
 {
+	FILE *fp = NULL;
+	char buffer[BUFFER_LENGTH] = { '\0' };
+	char fileName[BUFFER_LENGTH] = { '\0' };
 	int i = 0;
-	for (i = 0; i < tableSize; i++) {
-		printf("\n\n\n%d:",i);
-		PrintList(&table[i]);
-	}
-	puts("");
+	int argTaken = 0;
+	float avg = 0;
+	int option = 0;
+	Student *tmp = NULL;
+	Student tmpList = {'\0', '\0', 0, 0, NULL};
 
+	while (TRUE) {
+		argTaken = 0;
+		printf("Enter the name of the file to which you want to print students: ");
+		fgets(buffer, BUFFER_LENGTH, stdin);
+		argTaken = sscanf(buffer, "%s", fileName);
+		if (argTaken == 1)
+			break;
+	}
+
+	if (strchr(fileName, '.') == NULL)
+		strcat(fileName, ".txt");
+
+	fp = fopen(fileName, "w");
+	if (!fp) {
+		perror("ERROR");
+		return FAILURE;
+	}
+
+	PrintMenu();
+	option = GetNumber("Enter option: ");
+	switch (option) {
+	case 1:
+		for (i = 0; i < tableSize; i++)
+			PrintListToFileInternal(&table[i], fp);
+		break;
+
+	case 2:
+		for (i = 0; i < tableSize; i++) {
+			tmp = table[i].next;
+			while (tmp) {
+				avg = (float)tmp->total / tmp->totalEcts;
+				if (avg > 3.5 && tmp->totalEcts >= 55)
+					fprintf(fp, "%-16s %-16s %-8f\n", tmp->firstName, tmp->lastName, avg);
+				tmp = tmp->next;
+			}
+		}
+		break;
+
+	case 3:
+		for (i = 0; i < tableSize; i++) {
+			tmp = table[i].next;
+			while (tmp) {
+				avg = (float)tmp->total / tmp->totalEcts;
+				if (avg > 1.5 && tmp->totalEcts >= 15) //wrong values have been set so it is easier to demonstrate that students are sorted
+					InsertToList(&tmpList, CreateNewStudent(tmp->firstName, tmp->lastName, tmp->total, tmp->totalEcts));
+				tmp = tmp->next;
+			}
+		
+		}
+		PrintListToFileInternal(&tmpList, fp);
+		FreeList(tmpList.next);
+		break;
+
+	default:
+		printf("Invalid option");
+		break;
+	}
+
+	fclose(fp);
 	return SUCCESS;
 }
 
-int PrintList(Student *listHead) 
+int PrintListToFileInternal(Student *listHead, FILE *fp)
 {
 	Student *tmp = NULL;
 
 	tmp = listHead->next;
 
 	while (tmp) {
-		printf("\n\t%-16s %-16s %4d %4d", tmp->firstName, tmp->lastName, tmp->total, tmp->totalEcts);
+		fprintf(fp, "%-16s %-16s %-4f\n", tmp->firstName, tmp->lastName, (float)tmp->total / tmp->totalEcts);
 		tmp = tmp->next;
 	}
+
+	return SUCCESS;
+}
+
+int GetNumber(char *message)
+{
+	int number = 0;
+	int argTaken = 0;
+	char buffer[BUFFER_LENGTH]= { '\0' };
+
+	while (TRUE) {
+		argTaken = 0;
+		printf("\n%s", message);
+		fgets(buffer, BUFFER_LENGTH, stdin);
+		argTaken = sscanf(buffer, "%d", &number);
+		if (argTaken == 1)
+			break;
+	}
+
+	return number;
+}
+
+int PrintMenu()
+{
+	puts(	"\n1 - Print all students and their average grade"
+		"\n2 - Print students eligible for scholarship"
+		"\n3 - Print students eligible for scholarship in alphabetical order"	
+	);
 
 	return SUCCESS;
 }
