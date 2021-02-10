@@ -35,6 +35,10 @@ Programski kod napisati koristentno, uredno te odvojeno u funkcije
 #include <string.h>
 #include <errno.h>
 
+//for debugging
+#define _CRTDBG_MAP_ALLOC
+#include <crtdbg.h>
+
 #define TRUE 1
 #define FALSE 0
 #define SUCCESS 0
@@ -53,17 +57,19 @@ typedef struct _student {
 	StudentNode next;
 } Student;
 
-typedef _student HashTable;
+typedef Student HashTable;
 
 Student *CreateNewNode(int index, char *firstName, char *lastName);
 int InsertAtHead(Student *listHead, Student *toInsert);
 int SortedInsert(Student *listHead, Student *toInsert);
+int SortListByOrderNum(Student *listHead);
 int GetRandomNumber(int min, int max);
-int InputFromFile(char *fileName);
+int InputFromFile(char *fileName, Student *listHead);
 int FreeList(Student *head);
 HashTable CreateHashTabel(size_t size);
 int InitHashTable(HashTable *table, size_t size);
 int FreeHashTable(HashTable *table, size_t size);
+int PrintList(Student *listHead);
 
 int ExecutionFailure(char *message);
 void *ExecutionFailureNull(char *message);
@@ -71,8 +77,24 @@ void *ExecutionFailureNull(char *message);
 
 int main()
 {
-	printf("Hello world\n");
+	char fileName[BUFFER_LENGTH] = {'\0'};
+	Student List;
+	List.next = NULL;
 
+	//for debugging
+	_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
+
+	strncpy(fileName, "Zad_4", BUFFER_LENGTH);
+	InputFromFile(fileName, &List);
+
+	PrintList(&List);
+	puts("");
+
+	SortListByOrderNum(&List);
+	PrintList(&List);
+	puts("");
+
+	FreeList(List.next);
 	return SUCCESS;
 }
 
@@ -80,7 +102,7 @@ Student *CreateNewNode(int index, char *firstName, char *lastName)
 {
 	Student *newNode = NULL;
 
-	if (!firstName || !lastName || strlen(firstName) >= 0 || strlen(lastName) >= 0) return (Student*)ExecutionFailureNull("invalid function paramters");
+	if (!firstName || !lastName || strlen(firstName) <= 0 || strlen(lastName) <= 0) return (Student*)ExecutionFailureNull("Invalid function paramters");
 
 	newNode = (Student *)malloc(sizeof(Student));
 	if (!newNode) return (Student*)ExecutionFailureNull("Memory allocation failed");
@@ -129,9 +151,31 @@ int GetRandomNumber(int min, int max)
 	return min + rand() % (max - min);
 }
 
-int InputFromFile(char *fileName)
+int SortListByOrderNum(Student *listHead)
+{
+	Student *tmp = NULL;
+	Student *nextOne = NULL;
+
+	tmp = listHead->next;
+	listHead->next = NULL;
+
+	while (tmp) {
+		nextOne = tmp->next;
+		SortedInsert(listHead, tmp);
+		tmp = nextOne;
+	}
+
+	return SUCCESS;
+}
+
+int InputFromFile(char *fileName, Student *listHead)
 {
 	FILE *fp = NULL;
+	int argTaken = 0;
+	int index = 0;
+	char buffer[BUFFER_LENGTH] = {'\0'};
+	char firstName[BUFFER_LENGTH] = {'\0'};
+	char lastName[BUFFER_LENGTH] = {'\0'};
 
 	if (!fileName || strlen(fileName) <= 0) return ExecutionFailure("Invalid function paramater");
 
@@ -141,24 +185,45 @@ int InputFromFile(char *fileName)
 	fp = fopen(fileName, "r");
 	if (!fp) return ExecutionFailure("Error");
 
+	while (!feof(fp)) {
+		fgets(buffer, BUFFER_LENGTH, fp);
+		argTaken = sscanf(buffer, "%d %s %s", &index, firstName, lastName);
+		if (argTaken != 3) {
+			printf("Following line was not read successfuly: %s", buffer);
+			continue;
+		}
 
-
-
+		InsertAtHead(listHead, CreateNewNode(index, firstName, lastName));
+	}
 
 	fclose(fp);
 	return SUCCESS;
 }
 
+int PrintList(Student *listHead)
+{
+	Student *tmp = NULL;
 
+	tmp = listHead->next;
+	while (tmp) {
+		printf("\n%-5d %-32s %-32s %-10d",tmp->brojIndeksa, tmp->ime, tmp->prezime, tmp->orderNum);
+		tmp = tmp->next;
+	}
 
+	return SUCCESS;
+}
 
+int FreeList(Student *node)
+{
+	Student *tmp = NULL;
+	
+	if (node == NULL) return SUCCESS;
 
-
-
-
-
-
-
+	FreeList(node->next);
+	free(node->ime);
+	free(node->prezime);
+	free(node);
+}
 
 
 int ExecutionFailure(char *message)
