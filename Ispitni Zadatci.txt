@@ -104,27 +104,30 @@ Složiti elemente vezane liste od najvećeg prema najmanjem, ali se pri tome ne 
 Zadatak_04
 
 
-Napisati program koji iz datoteke cita popis studenata i sprema ihu vezanu listu.
+Napisati program koji iz datoteke cita popis studenata i sprema ih u vezanu listu.
 
-struct student;
-typedef struct _student StudentNode;
+struct _student;
+typedef struct _student *StudentNode;
 typedef struct _student {
-	int broj indeksa;
-	char ime;
+	int brojIndeksa;
+	char *ime;
 	char *prezime;
 	int orderNum;
 
-	Student next;
+	StudentNode next;
 } Student;
 
-a) Prilikom spremanja studenta u vezanu listu potrebno je studentu dodijeliti orderNum, kao slučajno generirani cijeli broj u rasponu od 1 do 1000. Ispisati listu.
+a) Prilikom spremanja studenta u vezanu listu potrebno je studentu dodijeliti orderNum, kao slučajno generirani cijeli broj u rasponu od 1 do 1000.
+Ispisati listu.
 
 b) Iz tako kreirane liste potrebno je kreirati novu vezanu listuu kojoj ce studenti biti sortirani po orderNum. Ispisati listu.
 NAPOMENA: Nije dozvoljena nova alokacija elementato pri nose u novu vezanu listu vec je potrebno prebaciti cvorove iz postojece liste.
 
-c) Iz sortirane liste kreirati hash tablicu sa zasebnim redovima od 8 (osam) mjesta. Funkcija preslikavanja ključ računa kao ostatak cjelobrojnog dijeljenja order Nums ukupnim brojem elemenata tablice Studenti s izračunatim ključem se spremaju u binarno stablo po broju indexa.
+c) Iz sortirane liste kreirati hash tablicu sa zasebnim redovima od 8 (osam) mjesta.
+Funkcija preslikavanja ključ računa kao ostatak cjelobrojnog dijeljenja orderNum ukupnim brojem elemenata tablice Studenti s izračunatim ključem se spremaju u binarno stablo po broju indexa.
 
-NAPOMENA: Zatvoriti sve otvorene datoteke, pobrisati svu dinamički alociranu memoriju i mirnim putem prekinuti rad programa. Programski kod napisati koristentno, uredno te odvojeno u funkcije
+NAPOMENA: Zatvoriti sve otvorene datoteke, pobrisati svu dinamički alociranu memoriju i mirnim putem prekinuti rad programa.
+Programski kod napisati koristentno, uredno te odvojeno u funkcije
 
 ************************************************************************************************************************************************
 Zadatak_05
