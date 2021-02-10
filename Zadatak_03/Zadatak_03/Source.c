@@ -19,13 +19,14 @@ Ispisati listu.
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
-
 #include <errno.h>
 
 #define TRUE 1
 #define FALSE 0
 #define SUCCESS 0
 #define FAILURE (-1)
+
+#define N 20
 
 typedef struct _node {
 	int value;
@@ -37,26 +38,36 @@ int GetRandomNumber(int min, int max);
 node *CreateNewNode(int value);
 int EvenOddInsert(node *listHead, node *toInsert);
 int FreeList(node *listHead);
+int PrintList(node *head);
+int SortOddEven(node *head);
+int SortedInsert(node *head, node *toInsert);
 int ExecutionFailure(char *message);
 void *ExecutionFailureNull(char *message);
-int PrintList(node *head);
 
 
 int main()
 {
-	int number = 0;
-
+	int numbers[N];
 	node List = {0, NULL};
-	int i = 0;
-	for (i = 0; i < 20; i++) {
-		number = GetRandomNumber(100, 200);
-		printf("%d ", number);
-		EvenOddInsert(&List, CreateNewNode(number));
+	int i;
+
+	printf("Random numbers generated:\n\t\t");
+	for (i = 0; i < N; i++) {
+		numbers[i] = GetRandomNumber(100, 200);
+		printf("%d ", numbers[i]);
 	}
 
-	puts("");
+	for (i = 0; i < N; i++)
+		EvenOddInsert(&List, CreateNewNode(numbers[i]));
+
+	printf("\n\nEven numbers descending - odd numbers ascending:\n\t\t");
 	PrintList(&List);
-	puts("");
+
+
+	SortOddEven(&List);
+	printf("\n\nAll numbers sorted descending:\n\t\t");
+	PrintList(&List);
+	printf("\n\n");
 
 	FreeList(List.next);
 	return SUCCESS;
@@ -89,13 +100,13 @@ int EvenOddInsert(node *listHead, node *toInsert)
 
 	tmp = listHead;
 	if (toInsert->value % 2 == 0) {
-		while (tmp->next && tmp->next->value % 2 == 0 && tmp->next->value < toInsert->value)
+		while (tmp->next && tmp->next->value % 2 == 0 && tmp->next->value > toInsert->value)
 			tmp = tmp->next;
 	
 	} else {
 		while (tmp->next && tmp->next->value % 2 == 0)
 			tmp = tmp->next;
-		while (tmp->next && tmp->next->value > toInsert->value)
+		while (tmp->next && tmp->next->value < toInsert->value)
 			tmp = tmp->next;
 	}
 	
@@ -122,6 +133,57 @@ int PrintList(node *head)
 	return SUCCESS;
 }
 
+int FreeList(node *firstToFree)
+{
+	if (firstToFree == NULL) return SUCCESS;
+
+	FreeList(firstToFree->next);
+	free(firstToFree);
+
+	return SUCCESS;
+}
+
+int SortOddEven(node *head)
+{
+	node *tmp = NULL;
+	node *nextOne = NULL;
+	node oddList = {0, NULL};
+
+	if (!head) return ExecutionFailure("Invalid function paramaters");
+
+	tmp = head;
+	while (tmp->next && tmp->next->value % 2 == 0)
+		tmp = tmp->next;
+
+	oddList.next = tmp->next;
+	tmp->next = NULL;
+
+	tmp = oddList.next;
+	while (tmp) {
+		nextOne = tmp->next;
+		SortedInsert(head, tmp);
+		tmp = nextOne;
+	}
+
+	return SUCCESS;
+}
+
+int SortedInsert(node *head, node *toInsert)
+{
+	node *tmp = NULL;
+
+	if (!head || !toInsert) return ExecutionFailure("Invalid function paramaters");
+
+	tmp = head;
+	while (tmp->next && tmp->next->value > toInsert->value)
+		tmp = tmp->next;
+
+	toInsert->next = tmp->next;
+	tmp->next = toInsert;
+
+	return SUCCESS;
+}
+
 int ExecutionFailure(char *message)
 {
 	if (errno != 0)
@@ -140,14 +202,4 @@ void *ExecutionFailureNull(char *message)
 		fprintf(stderr,"%s", message);
 
 	return NULL;
-}
-
-int FreeList(node *firstToFree)
-{
-	if (firstToFree == NULL) return SUCCESS;
-
-	FreeList(firstToFree->next);
-	free(firstToFree);
-
-	return SUCCESS;
 }
