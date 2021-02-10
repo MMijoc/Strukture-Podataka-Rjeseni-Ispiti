@@ -133,11 +133,12 @@ Programski kod napisati koristentno, uredno te odvojeno u funkcije
 Zadatak_05
 3 ispitni rok - dodatni 10.9.2020
 
-Napisati program koji generira 30 slučajnih brojeve u opsegu od 120-150. Sve brojeve spremiti u vezanu listu tako da redoslijed brojeva u listi odgovara redoslijedu generiranja brojeva. Ispisati listu i nakon toga izbrisati iz liste sve vrijednosti koje se ponavljaju uz uvjet da u čvoru koji ostane u listi se zapiše koliko je ukupno bilo tih vrijednosti. Ispisati novu vezanu listu kao i broj ponavljanja svakog čvora.
 
+Napisati program koji generira 30 slučajnih brojeve u opsegu od 120-150. Sve brojeve spremiti u vezanu listu tako da redoslijed brojeva u listi odgovara redoslijedu generiranja brojeva. Ispisati listu i nakon toga izbrisati iz liste sve vrijednosti koje se ponavljaju uz uvjet da u čvoru koji ostane u listi se zapiše koliko je ukupno bilo tih vrijednosti. Ispisati novu vezanu listu kao i broj ponavljanja svakog čvora.
 
 ************************************************************************************************************************************************
 Zadatak_06
+
 
 Napisati program koji iz datoteke čita šifru artikla (string za koji je potrebno prostor alocirati dinamički) i količinu tog artikla i sprema ih u vezanu listu složenu po šifri. U programu postoji pet (5) takvih datoteka i za svaku je potrebno kreirati odvojenu vezanu listu. Nadalje u programu treba
 
@@ -150,6 +151,7 @@ NAPOMENA: Zatvoriti sve otvorene datoteke, pobrisati svu dinamički alociranu me
 ************************************************************************************************************************************************
 Zadatak_07
 izvanredni ispitni rok 22. rujna 2020.
+
 
 Napisati program koji generira 30 puta dva slučajna broja. Prvi broj je vrijednost i ona je u opsegu od 100 do 200, a drugi je prioritet u opsegu od 1 do 5. Te podatke se sprema u strukturu od koje se gradi red s prioritetom. Što je veći prioritet to je podatak bliže vrhu (početku) reda. Ispisati red.
 
@@ -241,6 +243,7 @@ b) Nadopuniti zadatak pod a) tako da se ispiše nova vezana lista koja osim što
 Zadatak_14
 3 ispitni rok 28.8.2014.
 
+
 Napisati program koji generira 20 slučajnih brojeva iz opsega 100 - 150 i njih spremiti u vezanu listu i svakom od njih dodijeliti redni broj od 0-19.
 
 a) Nakon toga treba generirati pet slučajnih brojeva iz opsega 0-19 (voditi računa da se ne pojavi isti broj više puta) i elemente gornje liste s tim rednim brojem postaviti na početak liste. Ispisati te brojeve te novu listu s rednim brojevima.
@@ -260,11 +263,13 @@ Ispisati te brojeve te novu listu s rednim brojevima.
 Zadatak_15
 3 ispitni rok 11.9.2014.
 
+
 Napisati program koji generira slučajne brojeve u opsegu od 50-80. Ukoliko je generirani broj paran sprema se u vezanu listu parnih brojeva i to u padajućem redoslijedu (od najvećeg prema najmanjem), Ukoliko je broj neparan sprema se u vezanu listu neparnih brojeva, takoder u padajućem redoslijedu. Niti jedna vezana lista ne smije sadržavati dva ista elementa. Unos traje sve dok obje liste ne sadrže 10 clemenata. Treba ispisivati koji se broj generira i na kraju ispisati obje liste.
 
 ************************************************************************************************************************************************
 Zadatak_16
 dekanski rok 23.9.2014.
+
 
 Napisati program koji iz dvije datoteke (jedna sadrži ocjenu 1. kolokvija,a druga ocjenu 2. kolokvija) kreira vezanu listu studenata koji su položili ispit i ta se nova vezana lista slaže po ocjenama. Način pretvorbe bodova u ocjenu je dan u tablici.
 
@@ -324,7 +329,6 @@ Napisati program koji
 a) Iz datoteke čita stringove (mogu biti imena i mora ih biti min. 10) i stvara vezanu listu elemenata sortiranih po abecedi.
 b) Elemente iz datoteke ubaciti u binarno stablo i ispisati ga na inorder način.
 
-
 ************************************************************************************************************************************************
 Zadatak_22
 12.02.2013. Grupa 2
@@ -352,6 +356,5 @@ Zadatak_24
 Napisati program kojim se
 a) Iz datoteke čitaju riječi i spremaju u vezanu listu na način da se riječi slažu po abecednom redu obrnutom od abecednog reda. Zatim ispisati tu vezanu listu.
 b) Iz generirane liste ispisati samo one riječi koje se nalaze zapisane u drugoj proizvoljnoj datoteci.
-
 
 ************************************************************************************************************************************************
