@@ -36,11 +36,23 @@ typedef struct _node {
 	struct _node *next;
 } node;
 
+typedef struct _binTreeNode {
+	node *article;
+
+	struct _binTreeNode *left;
+	struct _binTreeNode *right;
+} BinTreeNode;
+
+
 node *CreateNewNode(char *articleCode, int qunatity);
 int SortedInsert(node *listHead, node *toInsert);
 int InputFromFile(char *fileName, node *listHead);
 int PrintList(node *listHead);
 int FreeList(node *node);
+
+BinTreeNode *CreateNewBinTreeNode(node *article);
+BinTreeNode *InsertToBinTree(BinTreeNode *current, node *toInsert);
+int FreeBinTree(BinTreeNode *root);
 
 int ExecutionFailure(char *message);
 void *ExecutionFailureNull(char *message);
@@ -49,6 +61,8 @@ void *ExecutionFailureNull(char *message);
 int main()
 {
 	node lists[5];
+	node *tmp = NULL;
+	BinTreeNode *root = NULL;
 	char fileName[BUFFER_LENGTH] = {'\0'};
 	int i;
 
@@ -74,7 +88,18 @@ int main()
 		puts("");
 	}
 
+	for (i = 0; i < 5; i++) {
+		tmp = lists[i].next;
+		while (tmp) {
+			root = InsertToBinTree(root, CreateNewNode(tmp->articeCode, tmp->quantity));
+			tmp = tmp->next;
+		}
+	} 
 
+	for (i = 0; i < 5; i++)
+		FreeList(lists[i].next);
+
+	FreeBinTree(root);
 
 	return SUCCESS;
 }
@@ -168,6 +193,61 @@ int FreeList(node *node)
 	FreeList(node->next);
 	free(node->articeCode);
 	free(node);
+
+	return SUCCESS;
+}
+
+BinTreeNode *CreateNewBinTreeNode(node *article)
+{
+	BinTreeNode *newNode = NULL;
+
+	if (!article) return (BinTreeNode *)ExecutionFailureNull("Invalid function paramters");
+
+	newNode = (BinTreeNode *)malloc(sizeof(BinTreeNode));
+	if (!newNode) return (BinTreeNode *)ExecutionFailureNull("Error");
+
+	newNode->article = article;
+	newNode->left = NULL;
+	newNode->right = NULL;
+
+	return newNode;
+}
+
+BinTreeNode *InsertToBinTree(BinTreeNode *current, node *valuetoInsert)
+{
+	BinTreeNode *nodeToInsert = NULL;
+
+	if (current == NULL) {
+		nodeToInsert = CreateNewBinTreeNode(valuetoInsert);
+		if (!nodeToInsert) return NULL;
+
+		return nodeToInsert;
+
+	} else if (strcmp(current->article->articeCode, valuetoInsert->articeCode) > 0) {
+		current->left = InsertToBinTree(current->left, valuetoInsert);
+
+	} else if (strcmp(current->article->articeCode, valuetoInsert->articeCode) < 0) {
+		current->right = InsertToBinTree(current->right, valuetoInsert);
+
+
+	} else {
+		current->article->quantity += valuetoInsert->quantity;
+		free(valuetoInsert->articeCode);
+		free(valuetoInsert);
+	}
+
+	return current;
+}
+
+int FreeBinTree(BinTreeNode *current)
+{
+	if (current == NULL) return SUCCESS;
+
+	FreeBinTree(current->left);
+	FreeBinTree(current->right);
+	free(current->article->articeCode);
+	free(current->article);
+	free(current);
 
 	return SUCCESS;
 }
