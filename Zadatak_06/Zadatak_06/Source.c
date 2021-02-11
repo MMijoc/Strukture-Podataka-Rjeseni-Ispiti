@@ -1,16 +1,12 @@
 ﻿/*
 Zadatak_06
-
-
 Napisati program koji iz datoteke čita šifru artikla (string za koji je potrebno prostor alocirati dinamički) i količinu tog artikla i sprema ih u vezanu listu složenu po šifri.
 U programu postoji pet (5) takvih datoteka i za svaku je potrebno kreirati odvojenu vezanu listu. Nadalje u programu treba
-
 a) Kreirati binarno stablo koje se formira prema šiframa artikla s tim da se za šifre koje vec postoje u stablu samo uvećava ukupna količina artikala iz svih vezanih listi - za 2
 b) Iz dodatne datoteke u kojoj je uz šifru pohranjen i naziv artikla, pročitati podatke i spremiti ih u odvojenu vezanu listu.
 Ponovno ispisati podatke iz binarnog stabla poda a) s tim da se za svaki artikl uz šifru ispiše i njegov naziv - za 3
 c) Proširiti binarno stablo na način da svaki čvor ima i pokazivač na vezanu listu osoba koje su taj artikl kupile.
 Ime prezime osobe se može izvući iz naziva datoteke. Ispisati binarno stablo sa svim pripadajućim podacima. - za 4 i 5
-
 NAPOMENA: Zatvoriti sve otvorene datoteke, pobrisati svu dinamički alociranu memoriju i mirnim putem prekinuti rad programa. Programski kod napisati kozistentno, uredno te odvojeno u funkcije
 */
 
@@ -43,53 +39,64 @@ typedef struct _article {
 	struct _article *next;
 } Article;
 
+typedef struct _person {
+	char fullName[BUFFER_LENGTH];
+
+	struct _person *next;
+} Person;
+
 typedef struct _binTreeNode {
 	node *article;
+	Person person;
 
 	struct _binTreeNode *left;
 	struct _binTreeNode *right;
 } BinTreeNode;
 
-node *CreateNewNode(char *articleCode, int qunatity);
+
+node *CreateNewNode(char *articleCode, int quantity);
 int SortedInsert(node *listHead, node *toInsert);
 int InputFromFile(char *fileName, node *listHead);
 int PrintList(node *listHead);
 int FreeList(node *node);
-
-BinTreeNode *CreateNewBinTreeNode(node *article);
-BinTreeNode *InsertToBinTree(BinTreeNode *current, node *toInsert);
+BinTreeNode *CreateNewBinTreeNode(node *article, Person *person);
+BinTreeNode *InsertToBinTree(BinTreeNode *current, node *valueToInsert, Person *personToInsert);
 int FreeBinTree(BinTreeNode *root);
 int PrintArticlesInOrder(BinTreeNode *current, Article *listHead);
-
 int InputArticleNamesFromFile(char *fileName, Article *listHead);
-int ArticleSortedInsert(node *listHead, Article *toInsert);
+int ArticleSortedInsert(Article *listHead, Article *toInsert);
 int FreeArticleList(Article *node);
 char *FindArticleName(Article *listHead, char *code);
-
+Person *CreateNewPerson(char *fullName);
+int InsertPerson(Person *listHead, Person *toInsert);
+int PrintPersonList(Person *listHead);
+int FreePersonsList(Person *person);
 int ExecutionFailure(char *message);
 void *ExecutionFailureNull(char *message);
 
 
 int main()
 {
+	int i = 0;
 	node lists[5];
-	Article articleList = {'\0', '\0', NULL};
 	node *tmp = NULL;
 	BinTreeNode *root = NULL;
-	char fileNames[5][BUFFER_LENGTH] = {"Zad_6_1", "Zad_6_2", "Zad_6_3", "Zad_6_4" ,"Zad_6_5"};
+	Article articleList = {'\0', '\0', NULL};
 	char articleNamesFile[BUFFER_LENGTH] = {"Zad_6_names"};
-	int i = 0;
+	char fileNames[5][BUFFER_LENGTH] = {"Zad_6_1", "Zad_6_2", "Zad_6_3", "Zad_6_4" ,"Zad_6_5"};
 
-	//for debugging
+
+	//for debugging memory leaks
 	_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
+
 
 	for (i = 0; i < 5; i++)
 		lists[i].next = NULL;
-
 	for (i = 0; i < 5; i++)
 		InputFromFile(fileNames[i], &lists[i]);
 
 	for (i = 0; i < 5; i++) {
+		printf("\nList from file: \"%s\"", fileNames[i]);
 		PrintList(&lists[i]);
 		puts("");
 	}
@@ -97,27 +104,27 @@ int main()
 	for (i = 0; i < 5; i++) {
 		tmp = lists[i].next;
 		while (tmp) {
-			root = InsertToBinTree(root, CreateNewNode(tmp->articleCode, tmp->quantity));
+			root = InsertToBinTree(root, CreateNewNode(tmp->articleCode, tmp->quantity), CreateNewPerson(fileNames[i]));
 			tmp = tmp->next;
 		}
 	}
-
 	InputArticleNamesFromFile(articleNamesFile, &articleList);
 
+	printf("\n\nBinary tree printed In Order in format {article code} {article name} {(quantity)}"
+		"\n\t->{list of persons who have that article -> name of the file in which that article code was found}");
 	PrintArticlesInOrder(root, &articleList);
 	puts("");
 
 
 	for (i = 0; i < 5; i++)
 		FreeList(lists[i].next);
-
 	FreeArticleList(articleList.next);
 	FreeBinTree(root);
 
 	return SUCCESS;
 }
 
-node *CreateNewNode(char *articleCode, int qunatity)
+node *CreateNewNode(char *articleCode, int quantity)
 {
 	node *newNode = NULL;
 
@@ -131,7 +138,7 @@ node *CreateNewNode(char *articleCode, int qunatity)
 	if (!newNode->articleCode) return (node *)ExecutionFailureNull("Error");
 
 	strcpy(newNode->articleCode, articleCode);
-	newNode->quantity = qunatity;
+	newNode->quantity = quantity;
 	newNode->next = NULL;
 
 	return newNode;
@@ -211,7 +218,7 @@ int FreeList(node *node)
 	return SUCCESS;
 }
 
-BinTreeNode *CreateNewBinTreeNode(node *article)
+BinTreeNode *CreateNewBinTreeNode(node *article, Person *person)
 {
 	BinTreeNode *newNode = NULL;
 
@@ -221,33 +228,36 @@ BinTreeNode *CreateNewBinTreeNode(node *article)
 	if (!newNode) return (BinTreeNode *)ExecutionFailureNull("Error");
 
 	newNode->article = article;
+	newNode->person.next = NULL;
+	InsertPerson(&(newNode->person), person);
 	newNode->left = NULL;
 	newNode->right = NULL;
 
 	return newNode;
 }
 
-BinTreeNode *InsertToBinTree(BinTreeNode *current, node *valuetoInsert)
+BinTreeNode *InsertToBinTree(BinTreeNode *current, node *valueToInsert, Person *personToInsert)
 {
 	BinTreeNode *nodeToInsert = NULL;
 
 	if (current == NULL) {
-		nodeToInsert = CreateNewBinTreeNode(valuetoInsert);
+		nodeToInsert = CreateNewBinTreeNode(valueToInsert, personToInsert);
 		if (!nodeToInsert) return NULL;
 
 		return nodeToInsert;
 
-	} else if (strcmp(current->article->articleCode, valuetoInsert->articleCode) > 0) {
-		current->left = InsertToBinTree(current->left, valuetoInsert);
+	} else if (strcmp(current->article->articleCode, valueToInsert->articleCode) > 0) {
+		current->left = InsertToBinTree(current->left, valueToInsert, personToInsert);
 
-	} else if (strcmp(current->article->articleCode, valuetoInsert->articleCode) < 0) {
-		current->right = InsertToBinTree(current->right, valuetoInsert);
+	} else if (strcmp(current->article->articleCode, valueToInsert->articleCode) < 0) {
+		current->right = InsertToBinTree(current->right, valueToInsert, personToInsert);
 
 
 	} else {
-		current->article->quantity += valuetoInsert->quantity;
-		free(valuetoInsert->articleCode);
-		free(valuetoInsert);
+		current->article->quantity += valueToInsert->quantity;
+		InsertPerson(&current->person, personToInsert);
+		free(valueToInsert->articleCode);
+		free(valueToInsert);
 	}
 
 	return current;
@@ -260,6 +270,7 @@ int FreeBinTree(BinTreeNode *current)
 	FreeBinTree(current->left);
 	FreeBinTree(current->right);
 	free(current->article->articleCode);
+	FreePersonsList(current->person.next);
 	free(current->article);
 	free(current);
 
@@ -274,8 +285,10 @@ int PrintArticlesInOrder(BinTreeNode *current, Article *listHead)
 
 	PrintArticlesInOrder(current->left, listHead);
 	tmp = FindArticleName(listHead, current->article->articleCode);
-	if (tmp)
-		printf("\n%s %s (%d)", current->article->articleCode, tmp, current->article->quantity);
+	if (tmp) {
+		printf("\n%s %s (%d)\n\t", current->article->articleCode, tmp, current->article->quantity);
+		PrintPersonList(&(current->person));
+	}
 	PrintArticlesInOrder(current->right, listHead);
 
 	return SUCCESS;
@@ -373,6 +386,63 @@ int FreeArticleList(Article *node)
 	free(node->code);
 	free(node->name);
 	free(node);
+
+	return SUCCESS;
+}
+
+Person *CreateNewPerson(char *fullName)
+{
+	Person *newPerson = NULL;
+
+	if (!fullName || strlen(fullName) <= 0) return (Person *)ExecutionFailureNull("Invalid function paramters");
+
+	newPerson = (Person *)malloc(sizeof(Person));
+	if (!newPerson) return (Person *)ExecutionFailureNull("Error");
+
+	strcpy(newPerson->fullName, fullName);
+	newPerson->next = NULL;
+
+	return newPerson;
+}
+
+int InsertPerson(Person *listHead, Person *toInsert)
+{
+	Person *tmp = NULL;
+
+	if (!listHead || !toInsert) return ExecutionFailure("Invalid arguments");
+
+	tmp = listHead;
+	while (tmp->next && strcmp(tmp->next->fullName, toInsert->fullName) < 0)
+		tmp = tmp->next;
+
+	if (tmp->next && strcmp(tmp->next->fullName, toInsert->fullName) == 0) {
+		free(toInsert);
+		return SUCCESS;
+	}
+
+	toInsert->next = tmp->next;
+	tmp->next = toInsert;
+
+	return SUCCESS;
+}
+
+int PrintPersonList(Person *listHead)
+{
+	Person *tmp = listHead->next;
+	while (tmp) {
+		printf("-> %s ",tmp->fullName);
+		tmp = tmp->next;
+	}
+	
+	return SUCCESS;
+}
+
+int FreePersonsList(Person *person)
+{
+	if (person == NULL) return SUCCESS;
+
+	FreePersonsList(person->next);
+	free(person);
 
 	return SUCCESS;
 }
