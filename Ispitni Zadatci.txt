@@ -96,9 +96,12 @@ Zadatak_03
 29. kolovoza 2019.
 
 
-Napisati program koji generira 20 slučajnih brojeva u opsegu od 20 - 50. Pri tome parne brojeve spremiti na početak vezane liste od najvećeg prema najmanjem, a neparne spremati na kraj vezane najmanjeg prema najvećem. U vezanoj listi ne smije biti ponavljanja elemenata i ne smiju se koristiti nizovi. Ispisati listu.
+Napisati program koji generira 20 slučajnih brojeva u opsegu od 20 - 50. Pri tome parne brojeve spremiti na početak vezane liste od najvećeg prema najmanjem,
+a neparne spremati na kraj vezane najmanjeg prema najvećem.
+U vezanoj listi ne smije biti ponavljanja elemenata i ne smiju se koristiti nizovi. Ispisati listu.
 
-Složiti elemente vezane liste od najvećeg prema najmanjem, ali se pri tome ne smije koristiti funkcija za sortiranje, već se treba iskoristiti raspored elemenata u vezanoj listi i samo prebacivati neparne elemente na odgovarajuće mjesto (od na većeg prema najmanjem). Ispisati listu.
+Složiti elemente vezane liste od najvećeg prema najmanjem, ali se pri tome ne smije koristiti funkcija za sortiranje,
+već se treba iskoristiti raspored elemenata u vezanoj listi i samo prebacivati neparne elemente na odgovarajuće mjesto (od na većeg prema najmanjem). Ispisati listu.
 
 ************************************************************************************************************************************************
 Zadatak_04
@@ -143,19 +146,24 @@ Zadatak_06
 Napisati program koji iz datoteke čita šifru artikla (string za koji je potrebno prostor alocirati dinamički) i količinu tog artikla i sprema ih u vezanu listu složenu po šifri. U programu postoji pet (5) takvih datoteka i za svaku je potrebno kreirati odvojenu vezanu listu. Nadalje u programu treba
 
 a) Kreirati binarno stablo koje se formira prema šiframa artikla s tim da se za šifre koje vec postoje u stablu samo uvećava ukupna količina artikala iz svih vezanih listi - za 2
-b) Iz dodatne datoteke u kojoj je uz šifru pohranjen i naziv artikla, pročitati podatke i spremiti ih u odvojenu vezanu listu. Ponovno ispisati podatke iz binarnog stabla poda a) s tim da se za svaki artikl uz šifru ispiše i njegov naziv - za 3
-c) Proširiti binarno stablo na način da svaki čvor ima i pokazivač na vezanu listu osoba koje su taj artikl kupile. Ime prezime osobe se može izvući iz naziva datoteke. Ispisati binarno stablo sa svim pripadajućim podacima. - za 4 i 5
+b) Iz dodatne datoteke u kojoj je uz šifru pohranjen i naziv artikla, pročitati podatke i spremiti ih u odvojenu vezanu listu.
+   Ponovno ispisati podatke iz binarnog stabla poda a) s tim da se za svaki artikl uz šifru ispiše i njegov naziv - za 3
+c) Proširiti binarno stablo na način da svaki čvor ima i pokazivač na vezanu listu osoba koje su taj artikl kupile.
+   Ime prezime osobe se može izvući iz naziva datoteke. Ispisati binarno stablo sa svim pripadajućim podacima. - za 4 i 5
 
-NAPOMENA: Zatvoriti sve otvorene datoteke, pobrisati svu dinamički alociranu memoriju i mirnim putem prekinuti rad programa. Programski kod napisati kozistentno, uredno te odvojeno u funkcije
+NAPOMENA: Zatvoriti sve otvorene datoteke, pobrisati svu dinamički alociranu memoriju i mirnim putem prekinuti rad programa.
+	  Programski kod napisati kozistentno, uredno te odvojeno u funkcije
 
 ************************************************************************************************************************************************
 Zadatak_07
 izvanredni ispitni rok 22. rujna 2020.
 
 
-Napisati program koji generira 30 puta dva slučajna broja. Prvi broj je vrijednost i ona je u opsegu od 100 do 200, a drugi je prioritet u opsegu od 1 do 5. Te podatke se sprema u strukturu od koje se gradi red s prioritetom. Što je veći prioritet to je podatak bliže vrhu (početku) reda. Ispisati red.
+Napisati program koji generira 30 puta dva slučajna broja. Prvi broj je vrijednost i ona je u opsegu od 100 do 200, a drugi je prioritet u opsegu od 1 do 5.
+Te podatke se sprema u strukturu od koje se gradi red s prioritetom. Što je veći prioritet to je podatak bliže vrhu (početku) reda. Ispisati red.
 
-Izmijeniti unos na način da podaci unutar istog prioriteta moraju biti sortirani po veličini od najmanjeg prema najvećem (koristiti sortirani unos, a ne sortiranje). Ispisati red.
+Izmijeniti unos na način da podaci unutar istog prioriteta moraju biti sortirani po veličini od najmanjeg prema najvećem (koristiti sortirani unos, a ne sortiranje). 
+Ispisati red.
 
 ************************************************************************************************************************************************
 Primjeri ispita (s protala) 1 dio
@@ -164,7 +172,8 @@ Zadatak_08
 1 ispitni rok 13.2.2014.
 
 
-Napisati program koji čita iz datoteke dio teksta, te kreira binarno stablo pretraživanja. Binarno stablo se kreira na način da se u njega upisuju sve različite riječi iz teksta koji je zapisan u datoteci s pripadajućim duljinama unesene riječi.
+Napisati program koji čita iz datoteke dio teksta, te kreira binarno stablo pretraživanja.
+Binarno stablo se kreira na način da se u njega upisuju sve različite riječi iz teksta koji je zapisan u datoteci s pripadajućim duljinama unesene riječi.
 
 struct Cvor {
 	char *rijec;
@@ -182,27 +191,46 @@ Zadatak_09
 1 ispitni rok 13.2.2014.
 
 
-Napisati program koji iz datoteke čita dio teksta, riječ po riječi unosi ih u red s prioritetom (maksimalna duljina riječi 1024 znaka, prioritet=1 => riječ počinje samoglasnikom, prioritet=2 => riječ počinje suglasnikom;). Riječi u redu moraju biti sortirane po prioritetu.
+Napisati program koji iz datoteke čita dio teksta, riječ po riječi unosi ih u red s prioritetom
+(maksimalna duljina riječi 1024 znaka, prioritet=1 => riječ počinje samoglasnikom, prioritet=2 => riječ počinje suglasnikom;).
+Riječi u redu moraju biti sortirane po prioritetu.
 
-Iz tako kreiranog reda kreirati dvije datoteke, u prvoj će se nalaziti riječi sa prioritetom=1, a u drugoj riječi s prioritetom=2; s tim da su te riječi u datoteci zapisane sortirane po abecedi.
+Iz tako kreiranog reda kreirati dvije datoteke, u prvoj će se nalaziti riječi sa prioritetom=1, a u drugoj riječi s prioritetom=2; 
+s tim da su te riječi u datoteci zapisane sortirane po abecedi.
 
 ************************************************************************************************************************************************
 Zadatak_10
 2 ispitni rok 27.2.2014.
 
 
-Napisati program koji iz datoteke čita dio teksta, riječ po riječi unosi u binarno stablo pretraživanja (maksimalna duljina riječi 1024 znaka). Ispisati binarno stablo na „inorder" način.
+Napisati program koji iz datoteke čita dio teksta, riječ po riječi unosi u binarno stablo pretraživanja (maksimalna duljina riječi 1024 znaka).
+Ispisati binarno stablo na „inorder" način.
 
-Iz binarnog stabla kreirati dvije datoteke, u prvoj se nalaze sve riječi koje počinju samoglasnikom, a u drugoj sve riječi koje počinju suglasnikom. Riječi zapisane u datotekama moraju biti sortirane po abecedi.
+Iz binarnog stabla kreirati dvije datoteke, u prvoj se nalaze sve riječi koje počinju samoglasnikom, a u drugoj sve riječi koje počinju suglasnikom.
+Riječi zapisane u datotekama moraju biti sortirane po abecedi.
 
 ************************************************************************************************************************************************
 Zadatak_11
 2 ispitni rok 27.2.2014.
 
 
-Napisati program koji iz datoteke čita podatke o broju bodova koje je jedan student dobio na ispitu (struct student{char ime[128];char prezime[128];int broj_bodova; int relativni_broj_bodova;struct student *left;;struct _student right;}) i sprema ih u binarno stablo pretraživanja. (Napomena: 0 broj_bodova <= 100). Ispisati binarno stablo na „inorder" način.
+Napisati program koji iz datoteke čita podatke o broju bodova koje je jedan student dobio na ispitu i sprema ih u binarno stablo pretraživanja.
 
-U tako kreiranom binarnom stablu potrebno je za svakog od studenata izračunati i relativan broj bodova po formuli: relativan_broj_bodova=( broj_bodova/MAX(broj_bodova) ). Ispisati binarno stablo na "preorder" način.
+struct student {
+	char ime[128];
+	char prezime[128];
+	int broj_bodova;
+	int relativni_broj_bodova;
+	struct student *left;
+	struct _student *right;
+};
+
+(Napomena: 0 broj_bodova <= 100).
+Ispisati binarno stablo na „inorder" način.
+
+U tako kreiranom binarnom stablu potrebno je za svakog od studenata izračunati i relativan broj bodova po formuli:
+relativan_broj_bodova = ( broj_bodova / MAX(broj_bodova) )
+Ispisati binarno stablo na "preorder" način.
 
 ************************************************************************************************************************************************
 Zadatak_12
@@ -215,9 +243,7 @@ struct Student{
 	char *sifra_studenta;
 	char *ime; char *prezime;
 	char "sifra_ispita;
-	struct_Student
-
-	*Next;
+	struct_Student *Next;
 };
 
 struct_ispit {
@@ -233,7 +259,8 @@ Zadatak_13
 3 ispitni rok 28.8.2014
 
 
-Napisati program koji za tri različita predmeta čita ime i prezime studenta te njegovu ocjenu. Podaci o svakom predmetu se nalaze u odvojenoj datoteci i iz svake datoteke je potrebno kreirati vezanu listu i ispisati je.
+Napisati program koji za tri različita predmeta čita ime i prezime studenta te njegovu ocjenu.
+Podaci o svakom predmetu se nalaze u odvojenoj datoteci i iz svake datoteke je potrebno kreirati vezanu listu i ispisati je.
 
 a) Nakon toga potrebno je kreirati novu listu koja sadrži imena studenata koji su položili sva tri predmeta
 
@@ -246,7 +273,8 @@ Zadatak_14
 
 Napisati program koji generira 20 slučajnih brojeva iz opsega 100 - 150 i njih spremiti u vezanu listu i svakom od njih dodijeliti redni broj od 0-19.
 
-a) Nakon toga treba generirati pet slučajnih brojeva iz opsega 0-19 (voditi računa da se ne pojavi isti broj više puta) i elemente gornje liste s tim rednim brojem postaviti na početak liste. Ispisati te brojeve te novu listu s rednim brojevima.
+a) Nakon toga treba generirati pet slučajnih brojeva iz opsega 0-19 (voditi računa da se ne pojavi isti broj više puta) i
+elemente gornje liste s tim rednim brojem postaviti na početak liste. Ispisati te brojeve te novu listu s rednim brojevima.
 
 Npr. za listu:broj:	0	1	2	3	4	5	6	7	8
 Element:		125	134	145	121	103	111	106	149	...
@@ -254,7 +282,8 @@ Ako se izgeneriraju redni brojevi 4, 2, 6, 0, 5 prvo se na početak dodaje eleme
 Npr. za listu:broj:	5	0	6	2	4	1	3	7	8
 Element:		125	134	145	121	103	106	149		...
 
-b) Izmijeniti gornji zadatak tako da iz postojeće liste nova formira na način da se elementi iz postojeće liste prebace po redoslijedu generiranja rednih brojeva, tj. za gornji primjer nova bi lista izgledala:
+b) Izmijeniti gornji zadatak tako da iz postojeće liste nova formira na način da se elementi iz postojeće liste prebace po redoslijedu generiranja rednih brojeva,
+tj. za gornji primjer nova bi lista izgledala:
 Npr. za listu:broj:	4	2	6	0	5	1	3	7	8
 Element:		103	145	106	125	111	134	121	149	...
 Ispisati te brojeve te novu listu s rednim brojevima.
@@ -264,14 +293,18 @@ Zadatak_15
 3 ispitni rok 11.9.2014.
 
 
-Napisati program koji generira slučajne brojeve u opsegu od 50-80. Ukoliko je generirani broj paran sprema se u vezanu listu parnih brojeva i to u padajućem redoslijedu (od najvećeg prema najmanjem), Ukoliko je broj neparan sprema se u vezanu listu neparnih brojeva, takoder u padajućem redoslijedu. Niti jedna vezana lista ne smije sadržavati dva ista elementa. Unos traje sve dok obje liste ne sadrže 10 clemenata. Treba ispisivati koji se broj generira i na kraju ispisati obje liste.
+Napisati program koji generira slučajne brojeve u opsegu od 50-80. Ukoliko je generirani broj paran sprema se u vezanu listu parnih brojeva i to u padajućem redoslijedu
+(od najvećeg prema najmanjem), Ukoliko je broj neparan sprema se u vezanu listu neparnih brojeva, takoder u padajućem redoslijedu.
+Niti jedna vezana lista ne smije sadržavati dva ista elementa.
+Unos traje sve dok obje liste ne sadrže 10 clemenata. Treba ispisivati koji se broj generira i na kraju ispisati obje liste.
 
 ************************************************************************************************************************************************
 Zadatak_16
 dekanski rok 23.9.2014.
 
 
-Napisati program koji iz dvije datoteke (jedna sadrži ocjenu 1. kolokvija,a druga ocjenu 2. kolokvija) kreira vezanu listu studenata koji su položili ispit i ta se nova vezana lista slaže po ocjenama. Način pretvorbe bodova u ocjenu je dan u tablici.
+Napisati program koji iz dvije datoteke (jedna sadrži ocjenu 1. kolokvija,a druga ocjenu 2. kolokvija) kreira vezanu listu studenata koji su položili ispit
+i ta se nova vezana lista slaže po ocjenama. Način pretvorbe bodova u ocjenu je dan u tablici.
 
 Bodovi			Ocjena
 50 - 59.99%		2
@@ -290,24 +323,33 @@ Zadatak_17
 
 
 Napisati program koji:
-a) Iz datoteke „drzave.txt“ čita popis država i njihov ID od pročitanih država izgraditi vezanu listu država na sortirani način od početka prema kraju abecede (treba raditi sortirani unos, a ne naknadno sortirati). Uz pokazivač na sljedeću državu struktura od koje se gradi vezana lista mora sadržavati i pokazivač na stablo gradova koji su u toj državi (trenutno NULL) - za 2
-b) Iz datoteke „gradovi.txt“ pročitati ime grada i ID države u kojoj se nalazi. Pronaći odgovarajuću državu u gornjoj listi, te dodati pročitani grad u stablo gradova te države. Za zadanu državu ispisati sve njene gradove po abecedi. – za 5
+a) Iz datoteke „drzave.txt“ čita popis država i njihov ID od pročitanih država izgraditi vezanu listu država na sortirani način od početka prema kraju abecede
+(treba raditi sortirani unos, a ne naknadno sortirati).
+Uz pokazivač na sljedeću državu struktura od koje se gradi vezana lista mora sadržavati i pokazivač na stablo gradova koji su u toj državi (trenutno NULL) - za 2
+
+b) Iz datoteke „gradovi.txt“ pročitati ime grada i ID države u kojoj se nalazi. Pronaći odgovarajuću državu u gornjoj listi,
+te dodati pročitani grad u stablo gradova te države. Za zadanu državu ispisati sve njene gradove po abecedi. – za 5
 
 ************************************************************************************************************************************************
 Zadatak_18
 15.02.2018. Grupa 2
 
 
-Napisati program koji iz datoteke „text.txt“ čita zadani tekst. Od pročitanih riječi se gradi binarno stablo pretraživanja, s tim da ukoliko se pronađe riječ koja se već nalazi u stablu potrebno ju je dodati u vezanu listu istih riječi za određeni čvor. Ispisati stablo. Za odabranu riječ ispitat koliko se puta ponavlja.
+Napisati program koji iz datoteke „text.txt“ čita zadani tekst. Od pročitanih riječi se gradi binarno stablo pretraživanja,
+s tim da ukoliko se pronađe riječ koja se već nalazi u stablu potrebno ju je dodati u vezanu listu istih riječi za određeni čvor.
+Ispisati stablo. Za odabranu riječ ispitat koliko se puta ponavlja.
 
 ************************************************************************************************************************************************
 Zadatak_19
 izvanredni ispitni rok 26.9.2017.
 
 
-Kreirati dvije datoteke i u njih upisati 10 slučajno generiranih brojeva iz opsega od 20-35. Svaku od datoteka pročitati i spremiti u vezanu listu (kreiraju se dvije vezane liste, npr. L1 i L2). Ispisati ih. Iz ove dvije vezane liste se kreiraju dvije nove vezane liste koje sadrže:
+Kreirati dvije datoteke i u njih upisati 10 slučajno generiranih brojeva iz opsega od 20-35. Svaku od datoteka pročitati i spremiti u vezanu listu
+(kreiraju se dvije vezane liste, npr. L1 i L2). Ispisati ih.
+Iz ove dvije vezane liste se kreiraju dvije nove vezane liste koje sadrže:
 a) presjek parnih članova listi L1 i L2;
 b) uniju neparnih članova listi L1 i L2.
+
 Kod kreiranja listi pod a) i b) se ne smije koristiti malloc, već uzeti postojeće elemente iz listi L1 i L2 i preusmjeriti pokazivače. Ispisati sve četiri liste.
 U listama pod a) i b) ne smije biti duplih vrijednosti i vrijednosti moraju bit složene uzlaznim redoslijedom.
 
@@ -316,9 +358,11 @@ Zadatak_20
 31. kolovoza 2017.
 
 
-Napisati program koji generira 15 slučajnih brojeva u opsegu od 100 - 120 i sprema ih u vezanu listu, po redoslijedu generiranja, a ne sortirano. U listi ne smije biti duplih vrijednosti.
-a) Potrebno je pronaći minimalnu i maksimalnu vrijednost, te iz njih izračunati srednju vrijednost ((min+max)/2) i nakon toga sve vrijednosti koje su veće od srednje prebaciti na kraj liste. Ispisati minimalnu, maksimalnu i srednju vrijednost kao i rezultantnu listu.
-b) Pronaći vrijednost u listi koja je najbliža srednjoj vrijednosti i nju postaviti kao root element binarnog stabla za pretraživanje. Nakon toga sve elemente iz liste prebaciti u stablo i gotovo stablo ispisati na level order način.
+Napisati program koji generira 15 slučajnih brojeva u opsegu od 100 - 120 i sprema ih u vezanu listu, po redoslijedu generiranja,a ne sortirano. U listi ne smije biti duplih vrijednosti.
+a) Potrebno je pronaći minimalnu i maksimalnu vrijednost, te iz njih izračunati srednju vrijednost ((min+max)/2) i
+nakon toga sve vrijednosti koje su veće od srednje prebaciti na kraj liste. Ispisati minimalnu, maksimalnu i srednju vrijednost kao i rezultantnu listu.
+b) Pronaći vrijednost u listi koja je najbliža srednjoj vrijednosti i nju postaviti kao root element binarnog stabla za pretraživanje.
+Nakon toga sve elemente iz liste prebaciti u stablo i gotovo stablo ispisati na level order način.
 
 ************************************************************************************************************************************************
 Zadatak_21
