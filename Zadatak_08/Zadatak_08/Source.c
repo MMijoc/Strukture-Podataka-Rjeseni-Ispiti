@@ -31,7 +31,7 @@ Napisati program koji iz tako kreiranog binarnog stabla u vezanu listu puni samo
 #define TRUE 1
 #define FALSE 0
 #define SUCCESS 0
-#define FALIURE (-1)
+#define FAILURE (-1)
 #define BUFFER_LENGTH 1024
 
 struct _Cvor {
@@ -96,7 +96,7 @@ int ExecutionFailure(char *message)
 	else
 		fprintf(stderr, "\n%s", message);
 
-	return FALIURE;
+	return FAILURE;
 }
 
 void *ExecutionFailureNull(char *message)
@@ -232,14 +232,14 @@ int GetTotalLength(Cvor *current)
 float GetAverageWordLength(Cvor *current)
 {
 	int nodeCount = 0;
-	int totalLnegth = 0;
+	int totalLength = 0;
 
 	nodeCount = CountNodesInTree(current);
-	totalLnegth = GetTotalLength(current);
+	totalLength = GetTotalLength(current);
 
 	if (nodeCount == 0) return 0;
 
-	return (float)totalLnegth / nodeCount;
+	return (float)totalLength / nodeCount;
 }
 
 Word *CreateNewWord(char *word)
