@@ -47,8 +47,11 @@ int Enqueue(node *qHead, node *toEnqueue);
 int Dequeue(node *qHead, node *toDequeue);
 int PrintList(node *qHead);
 int PrintToFile(char *fileName, node *qHead);
+int PrintListToFile(char *fileName, node *qHead);
 int SortedInput(node *listHead, node *toInsert);
 int FreeList(node *current);
+int PrintToFileByPrority(node *qHead);
+int RemoveInterpunction(char *source, char *charsToRemove);
 
 int main()
 {
@@ -63,12 +66,9 @@ int main()
 	fileContent = GetFileContent(fileName);
 	if (!fileContent) return FAILURE;
 
-	//printf("%s", fileContent);
-	BuildQueueFromString(&Queue, fileContent);
-	PrintList(&Queue);
 
-	while (Dequeue(&Queue, &tmp) != FAILURE)
-		printf("%\n\t%s %d", tmp.word, tmp.priority);
+	BuildQueueFromString(&Queue, fileContent);
+	PrintToFileByPrority(&Queue);
 	
 	free(fileContent);
 	return SUCCESS;
@@ -152,12 +152,11 @@ int BuildQueueFromString(node *qHead, char *source)
 	int argTaken = 0, offset = 0;
 	char buffer[BUFFER_LENGTH];
 
-	//RemoveInterpunction(source);
+	RemoveInterpunction(source, ".,;:*?!()\"");
 
 	while(TRUE) {
 		argTaken = sscanf(source, "%s%n", buffer, &offset);
 		if (argTaken != 1) return FAILURE;
-		strtok(buffer, ".,;:*?\"!'");
 		Enqueue(qHead, CreateNewNode(buffer));
 		source += offset;
 
@@ -210,11 +209,42 @@ int PrintList(node *qHead)
 	return SUCCESS;
 }
 
+int PrintListToFile(char *fileName, node *qHead)
+{
+	FILE *fp = NULL;
+	node *tmp = qHead->next;
+	
+
+	fp = fopen(fileName, "w");
+	if (!fp) RETURN_FAILURE("error");
+
+	while (tmp) {
+		fprintf(fp, "%s %d\n", tmp->word, tmp->priority);
+		tmp = tmp->next;
+	}
+
+	fclose(fp);
+	return SUCCESS;
+}
+
 int PrintToFileByPrority(node *qHead)
 {
-	node tmpList = {"", 0, NULL};
+	node tmpList1 = {"", 0, NULL};
+	node tmpList2 = {"", 0, NULL};
+	node tmp = {"", 0, NULL};
 
-	//while (Dequeue
+	while (Dequeue(qHead, &tmp) != FAILURE) {
+		if (tmp.priority == 1)
+			SortedInput(&tmpList1, CreateNewNode(tmp.word));
+		else
+			SortedInput(&tmpList2, CreateNewNode(tmp.word));
+	}
+
+	PrintListToFile("Priority_1.txt", &tmpList1);
+	PrintListToFile("Priority_2.txt", &tmpList2);
+
+	FreeList(tmpList1.next);
+	FreeList(tmpList2.next);
 
 	return SUCCESS;
 }
@@ -226,7 +256,7 @@ int SortedInput(node *listHead, node *toInsert)
 	if (!listHead || !toInsert) RETURN_FAILURE("Invalid arguments");
 
 	tmp = listHead;
-	while (tmp->next && _stricmp(tmp->next->word, toInsert->word) > 0)
+	while (tmp->next && _stricmp(tmp->next->word, toInsert->word) < 0)
 		tmp = tmp->next;
 
 	toInsert->next = tmp->next;
@@ -245,4 +275,17 @@ int FreeList(node *current)
 	return SUCCESS;
 }
 
+int RemoveInterpunction(char *source, char *charsToRemove)
+{
+	int i = 0, j = 0;
+	int length = 0, nChars = 0;
 
+	length = strlen(source);
+	nChars = strlen(charsToRemove);
+	for (i = 0; i < length; i++)
+		for (j = 0; j <nChars; j++)
+			if (source[i] == charsToRemove[j])
+				source[i] = ' ';
+
+	return SUCCESS;
+}
