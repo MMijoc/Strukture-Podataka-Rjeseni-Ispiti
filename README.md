@@ -11,13 +11,13 @@
 ## Važno!!!
 4. ***Svaki put kada se nastavlja raditi na projektu dobro je povući moguće dodatne promjene koje su se dogodile u mani branch-u (pri promjeni teksta zadatka, dodavanja novi zadataka ili tekstualnih datoteka iz koji se čita), to se radi preko naredbe*** git pull, ***pri čemu je potrebno biti u odgovarajućem branch-u (main)  Da bi se ove promijene prenijele i na vlastiti branch potrebno je napravit:***  
 	**git checkout ime-tvog-brancha**  
-	 **git merege main**  
+	 **git merge main**  
 	 
 >Dakle svaki put kada nastavljamo raditi na projektu vršimo redom naredbe:  
 >>**git checkout main**  
 >>**git pull**  
 >>**git checkout ime-tvog-brancha**  
->>**git merege main** 
+>>**git merge main** 
 
 
 ## Promjene u main branch-u
