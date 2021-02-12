@@ -175,11 +175,11 @@ Zadatak_08
 Napisati program koji čita iz datoteke dio teksta, te kreira binarno stablo pretraživanja.
 Binarno stablo se kreira na način da se u njega upisuju sve različite riječi iz teksta koji je zapisan u datoteci s pripadajućim duljinama unesene riječi.
 
-struct Cvor {
+struct _Cvor {
 	char *rijec;
 	int length;
-	struct Cvor *Left;
-	struct_Cvor *Right;
+	struct _Cvor *Left;
+	struct _Cvor *Right;
 };
 
 Potrebno je izračunati prosječnu duljinu svake riječi zapisane u binarnom stablu,
