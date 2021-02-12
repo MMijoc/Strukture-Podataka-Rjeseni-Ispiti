@@ -48,7 +48,7 @@ npr. git checkout Marko-Mijoc
 
 7. Dohvati promjene u main branchu (ako su dodani ili uređeni zadatci)
 NAPOMENA: pazit da se nalaziš u svom branchu, ako nisi prvo iskoristit: git checkout ime-tvog-brancha  
- **git merege main**
+ **git merge main**
 
 8. Novi lokalni branch  
  **git checkout -b ime-brancha**
