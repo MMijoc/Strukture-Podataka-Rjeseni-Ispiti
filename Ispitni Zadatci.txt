@@ -216,12 +216,12 @@ Zadatak_11
 
 Napisati program koji iz datoteke čita podatke o broju bodova koje je jedan student dobio na ispitu i sprema ih u binarno stablo pretraživanja.
 
-struct student {
+struct _student {
 	char ime[128];
 	char prezime[128];
 	int broj_bodova;
 	int relativni_broj_bodova;
-	struct student *left;
+	struct _student *left;
 	struct _student *right;
 };
 
@@ -239,11 +239,12 @@ Zadatak_12
 
 Napisati program koji čita iz datoteka podatke o studentima i ispitima, te kreira dvije vezane liste
 
-struct Student{
+struct _Student{
 	char *sifra_studenta;
-	char *ime; char *prezime;
-	char "sifra_ispita;
-	struct_Student *Next;
+	char *ime;
+	char *prezime;
+	char *sifra_ispita;
+	struct _Student *Next;
 };
 
 struct_ispit {
