@@ -220,7 +220,7 @@ struct _student {
 	char ime[128];
 	char prezime[128];
 	int broj_bodova;
-	int relativni_broj_bodova;
+	float relativni_broj_bodova;
 	struct _student *left;
 	struct _student *right;
 };
