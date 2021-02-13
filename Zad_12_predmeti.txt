@@ -1,0 +1,23 @@
+FELB06 Diskretni_sustavi_i_strukture
+FELB02 Objektno_orijentirano_programiranje
+FEMB02 Diskretna_matematika
+FELB03 Strukture_podataka
+FEOB02 Komunikacijske_vjestine
+FENB02 Praktikum
+FELB07 Algoritmi
+FELB05 Arhitektura_digitalnih_racunala
+FELB08 Baze_podataka
+FELB09 Signali_i_sustavi
+FEMB01 Vjerojatnost_i_statistika
+
+FEMX01 Matematika_1
+FENA01 Osnove_elektrotehnike_1
+FELA01 Racunala_i_programiranje
+FELA08 Inzenjerska_grafika_i_prezentacija
+FEOA04 Engleski_jezik_1
+FEOA03 Komunikacijske_vjestine
+FEMA01 Fizika_1
+FEMX02 Matematika_2
+FENA02 Osnove_elektrotehnike_2
+FELA04 Programiranje
+FEOA05 Engleski_jezik_2
