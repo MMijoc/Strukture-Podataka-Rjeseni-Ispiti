@@ -104,7 +104,7 @@ PersonPosition GetFromFile(char* fileName)
 
 	PersonPosition r = NULL;
 
-	buffer = (char*)malloc(sizeof(MAX_STRING));
+	buffer = (char*)malloc(sizeof(MAX_STRING + 1));
 	if(NULL == buffer){
 		puts("Neuspješna alokacija!(buffer)");
 		return NULL;
@@ -121,12 +121,12 @@ PersonPosition GetFromFile(char* fileName)
 
 	while(!feof(fp)){
 		
-		memset(buffer, '\0', MAX_STRING - 1);
-		memset(&firstName, '\0', MAX_NAME);
-		memset(&lastName, '\0', MAX_NAME);
+		memset(buffer, '\0', MAX_STRING);
+		memset(firstName, '\0', sizeof(buffer));
+		memset(lastName, '\0', MAX_NAME);
 
-		fgets(buffer, MAX_STRING, fp);
-		retVal = sscanf(buffer, "%s %s %n", firstName, lastName, n);
+		fgets(buffer, sizeof(buffer), fp);
+		retVal = sscanf(buffer, "%s%s%n", firstName, lastName, &n);
 		buffer += n;
 
 		r = AddPerson(r, firstName, lastName, buffer);
@@ -139,14 +139,14 @@ PersonPosition GetFromFile(char* fileName)
 }
 PersonPosition MakeNewRoot(char* firstName, char* lastName, char* buffer)
 {
-	int n, succ;
+	int n = 0;
+	int succ = 0;
 	int retVal;
 
 	PersonPosition p;
 	Word q;
 
 	char word[MAX_NAME];
-	memset(word, '\0', MAX_NAME);
 
 	p = (PersonPosition)malloc(sizeof(Person));
 	p->left = NULL;
@@ -162,7 +162,7 @@ PersonPosition MakeNewRoot(char* firstName, char* lastName, char* buffer)
 		
 		memset(word, '\0', MAX_NAME);
 
-		retVal = sscanf(buffer, "%s %n", word, n);
+		retVal = sscanf(buffer, "%s %n", word, &n);
 		if(retVal == 0)
 			break;
 
