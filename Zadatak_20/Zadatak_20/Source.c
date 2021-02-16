@@ -25,12 +25,15 @@ Nakon toga sve elemente iz liste prebaciti u stablo i gotovo stablo ispisati na 
 #define FALSE 0
 #define BUFFER_LENGTH 1024
 
+#define N 15
+
 #define RETURN_FAILURE(message) do {PrintError(message); return FAILURE;} while(0);
 #define RETURN_NULL(message) do {PrintError(message); return NULL;} while(0);
 
 
 void PrintError(char *message);
-
+int GetUniqueRand(int min, int max, int arr[], int arrSize);
+int QShuffleCompare(const void *x, const void *y);
 
 int main()
 {
@@ -51,4 +54,31 @@ void PrintError(char *message)
 		fprintf(stderr, "\n%s", message);
 
 	return;
+}
+
+int GetUniqueRand(int min, int max, int arr[], int arrSize)
+{
+	int *tmpArr = NULL;
+	int i = 0;
+	int span = abs(max - min);
+
+	if (min > max || span < arrSize) RETURN_FAILURE("Invalid bounds for random numbers");
+
+	tmpArr = (int *)malloc(span * sizeof(int));
+	if (!tmpArr) RETURN_FAILURE("Error");
+
+	for (i = 0; i < span; i++)
+		tmpArr[i] = min + i;
+
+	qsort(tmpArr, span, sizeof(int), QShuffleCompare);
+	for (i = 0; i < arrSize; i++)
+		arr[i] = tmpArr[i];
+
+	free(tmpArr);
+	return SUCCESS;
+}
+
+int QShuffleCompare(const void *x, const void *y)
+{
+	return rand() % 2 ? 1 : -1;
 }
