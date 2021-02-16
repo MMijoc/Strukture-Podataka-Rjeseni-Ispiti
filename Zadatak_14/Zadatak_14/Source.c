@@ -59,6 +59,7 @@ node *CreateNewNode(int value, int orderNum);
 int InsertAtHead(node *listHead, node *toInsert);
 int InsertAtTail(node *listHead, node *toInsert);
 node *FindTail(node *listHead);
+int FreeList(node *element);
 int GetUniqueRand(int min, int max, int arr[], int arrSize);
 int QShuffleComp(const void *dummy1, const void *dummy2);
 int PrintList(node *listHead);
@@ -70,6 +71,8 @@ int main()
 	node list = {0, 0, NULL};
 	node list1 = {0, 0, NULL};
 	node *tmp = NULL;
+	node *toInsert = NULL;
+	int isSpecial = 0;
 	int randArray[10];
 	_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
 
@@ -84,14 +87,17 @@ int main()
 	for(i = 0; i < M; i++)
 		printf("%d ", randArray[i]);
 
-
 	tmp = list.next;
 	while (tmp) {
+		isSpecial = FALSE;
 		for (i = 0; i < M; i++) {
-			if (randArray[i] == tmp->orderNum) {
-				tmp = tmp->next;
-				continue;
-			}
+			if (randArray[i] == tmp->orderNum)
+				isSpecial = TRUE;
+		}
+		
+		if (isSpecial == TRUE) {
+			tmp = tmp->next;
+			continue;
 		}
 
 		InsertAtTail(&list1, CreateNewNode(tmp->value, tmp->orderNum));
@@ -101,12 +107,28 @@ int main()
 	for (i = 0; i < M; i++) {
 		InsertAtHead(&list1, CreateNewNode(FindNumber(&list, randArray[i]), randArray[i]));
 	}
-	printf("\nChanged list:\n");
+	printf("\nNew list:\n");
 	PrintList(&list1);
 
+	// b)
+	for (i = 0; i < M; i++) {
+		tmp = &list;
+		while (tmp->next && tmp->next->orderNum != randArray[i])
+			tmp = tmp->next;
 
+		toInsert = tmp->next;
+		tmp->next = tmp->next->next;
+
+		toInsert->next = NULL;
+		InsertAtHead(&list, toInsert);
+	}
+
+	printf("\n\n\nInitial changed list\n");
+	PrintList(&list);
+
+	FreeList(list.next);
+	FreeList(list1.next);
 	return SUCCESS;
-
 }
 
 void PrintError(char *message)
@@ -153,6 +175,12 @@ int InsertAtTail(node *listHead, node *toInsert)
 	node *tail = NULL;
 
 	if (!listHead || !toInsert) RETURN_FAILURE(ERR_0);
+
+	if(listHead->next == NULL) {
+		listHead->next = toInsert;
+		return SUCCESS;
+	}
+
 	tail = FindTail(listHead);
 	tail->next = toInsert;
 
@@ -167,6 +195,16 @@ node *FindTail(node *listHead)
 		tmp = tmp->next;
 
 	return tmp;
+}
+
+int FreeList(node *element)
+{
+	if (element == NULL) return SUCCESS;
+
+	FreeList(element->next);
+	free(element);
+
+	return SUCCESS;
 }
 
 int FindNumber(node *listHead, int orderNum)
