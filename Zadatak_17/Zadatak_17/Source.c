@@ -59,7 +59,7 @@ int FreeBinTree(treeNode *current);
 int PrintTreeInOrder(treeNode *root);
 
 
-node *GetConutry(node *listHead, int id);
+node *GetCountry(node *listHead, int id);
 int InputCitiesFromFile(node *listHead, char *fileName);
 
 int main()
@@ -213,7 +213,7 @@ treeNode *InsertToBinTree(treeNode *current, treeNode *toInsert)
 		current->right = InsertToBinTree(current->right, toInsert);
 	
 	} else {
-		printf("City with the same name alread exists!");
+		printf("City with the same name already exists!");
 		free(toInsert);
 	}
 
@@ -242,7 +242,7 @@ int PrintTreeInOrder(treeNode *current)
 	return SUCCESS;
 }
 
-node *GetConutry(node *listHead, int id)
+node *GetCountry(node *listHead, int id)
 {
 	node *tmp = NULL;
 
@@ -285,12 +285,12 @@ int InputCitiesFromFile(node *listHead, char *fileName)
 			printf("\nFollowing line was not read successfully: \"%s\"", buffer);
 			continue;
 		}
-		tmp = GetConutry(listHead, id);
+		tmp = GetCountry(listHead, id);
 		if (tmp) {
 			tmp->root = InsertToBinTree(tmp->root, CreateNewTreeNode(name, id));
 		
 		} else {
-			printf("Unxpected error");
+			printf("Unexpected error");
 		}
 	}
 
