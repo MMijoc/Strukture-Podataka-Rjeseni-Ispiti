@@ -61,7 +61,7 @@ int InsertAtTail(node *listHead, node *toInsert);
 node *FindTail(node *listHead);
 int FreeList(node *element);
 int GetUniqueRand(int min, int max, int arr[], int arrSize);
-int QShuffleComp(const void *dummy1, const void *dummy2);
+int QShuffleCompare(const void *x, const void *y);
 int PrintList(node *listHead);
 int FindNumber(node *listHead, int orderNum);
 
@@ -222,28 +222,27 @@ int FindNumber(node *listHead, int orderNum)
 
 int GetUniqueRand(int min, int max, int arr[], int arrSize)
 {
-
 	int *tmpArr = NULL;
 	int i = 0;
+	int span = abs(max - min);
 
-	if (min > max || abs(max - min) < arrSize) RETURN_FAILURE("Invalid bunds for random numbers");
+	if (min > max || span < arrSize) RETURN_FAILURE("Invalid bounds for random numbers");
 
-	tmpArr = (int *)malloc((max - min) * sizeof(int));
+	tmpArr = (int *)malloc(span * sizeof(int));
 	if (!tmpArr) RETURN_FAILURE("Error");
 
-	for (i = 0; i < arrSize; i++)
+	for (i = 0; i < span; i++)
 		tmpArr[i] = min + i;
 
-	qsort(tmpArr, arrSize, sizeof(int), QShuffleComp);
-	for (i = 0; i < arrSize; i++) {
+	qsort(tmpArr, span, sizeof(int), QShuffleCompare);
+	for (i = 0; i < arrSize; i++)
 		arr[i] = tmpArr[i];
-	}
 
 	free(tmpArr);
 	return SUCCESS;
 }
 
-int QShuffleComp(const void *dummy1, const void *dummy2)
+int QShuffleCompare(const void *x, const void *y)
 {
 	return rand() % 2 ? 1 : -1;
 }
