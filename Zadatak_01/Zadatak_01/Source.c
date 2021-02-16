@@ -64,6 +64,11 @@ typedef struct _person {
 	PersonPosition right;
 } Person;
 
+#define RETURN_FAILURE(message) do {PrintError(message); return FAILURE;} while(0);
+#define RETURN_NULL(message) do {PrintError(message); return NULL;} while(0);
+#define ERR_0 "Invalid function arguments"
+
+void PrintError(char *message);
 Word *CreateWord(char *word);
 int InsertWordAtHead(Word *head, char *word);
 int PrintList(Word *head);
@@ -96,20 +101,24 @@ int main()
 	return SUCCESS;
 }
 
+void PrintError(char *message)
+{
+	if (errno != 0)
+		perror(message);
+	else
+		fprintf(stderr, "\n%s", message);
+
+	return;
+}
+
 Word *CreateWord(char *word)
 {
 	Word *newWord = NULL;
 
-	if (word == NULL || strlen(word) == 0) {
-		perror("Invalid function argument");
-		return NULL;
-	}
+	if (!word || strlen(word) <= 0) RETURN_NULL(ERR_0);
 
 	newWord = (Word *)malloc(sizeof(Word));
-	if (newWord == NULL) {
-		perror("");
-		return NULL;
-	}
+	if (newWord == NULL) RETURN_NULL("Error");
 
 	strncpy(newWord->word, word, MAX_NAME - 1);
 	newWord->next = NULL;
@@ -133,6 +142,9 @@ int InsertWordAtHead(Word *head, char *word)
 int PrintList(Word *head)
 {
 	Word *tmp = head->next;
+
+	if(!head) RETURN_FAILURE(ERR_0);
+
 	while (tmp) {
 		printf(" %s", tmp->word);
 		tmp = tmp->next;
@@ -145,16 +157,10 @@ Person *CreatePerson(char *firstName, char *lastName)
 {
 	Person *newPerson = NULL;
 
-	if ( firstName == NULL || lastName == NULL || strlen(firstName) == 0 || strlen(lastName) == 0 ) {
-		printf("Invalid function argument");
-		return NULL;
-	}
+	if (!firstName || !lastName || strlen(firstName) <= 0 || strlen(lastName) <= 0 ) RETURN_NULL(ERR_0);
 
 	newPerson = (Person *)malloc(sizeof(Person));
-	if (NULL == newPerson) {
-		perror("");
-		return NULL;
-	}
+	if (NULL == newPerson) RETURN_NULL("Error");
 	
 	strncpy(newPerson->firstName, firstName, MAX_NAME);
 	strncpy(newPerson->lastName, lastName, MAX_NAME);
@@ -173,15 +179,12 @@ Person *BuildTree(char *fileName)
 	FILE *fp = NULL;
 	char buffer[BUFFER_LENGTH] = {'\0'};
 
-	if (fileName == NULL || strlen(fileName) == 0) {
-		perror("Invalid function argument");
-		return NULL;
-	}
+	if (!fileName || strlen(fileName) <= 0) RETURN_NULL(ERR_0);
 
 	if (strchr(fileName, '.') == NULL)
 		strcat(fileName, ".txt");
 
-	fp = fopen(fileName, "rb");
+	fp = fopen(fileName, "r");
 	if (!fp) {
 		perror("ERROR");
 		return NULL;
@@ -205,7 +208,7 @@ int Insert(Person **root, char *buffer)
 	char word[BUFFER_LENGTH] = {'\0'};
 	Person *newPerson = NULL;
 
-	argTaken = sscanf(buffer, "%s %s %n", firstName, lastName, &n);
+	argTaken = sscanf(buffer, "%s%s%n", firstName, lastName, &n);
 	if (argTaken != 2) return FAILURE;
 	buffer += n;
 
