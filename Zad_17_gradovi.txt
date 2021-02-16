@@ -1,0 +1,15 @@
+Melbourne 128
+Nice 400
+Sydney 128
+Split 999
+Pariz 400
+Varazdin 999
+Zagreb 999
+Barcelona 800
+Venecija 654
+Rim 654
+Madrid 800
+Skoplje 235
+Berlin 150 
+Dusserdorf 150
+Munchen 150
