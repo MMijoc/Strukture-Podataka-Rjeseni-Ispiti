@@ -175,11 +175,11 @@ Zadatak_08
 Napisati program koji čita iz datoteke dio teksta, te kreira binarno stablo pretraživanja.
 Binarno stablo se kreira na način da se u njega upisuju sve različite riječi iz teksta koji je zapisan u datoteci s pripadajućim duljinama unesene riječi.
 
-struct Cvor {
+struct _Cvor {
 	char *rijec;
 	int length;
-	struct Cvor *Left;
-	struct_Cvor *Right;
+	struct _Cvor *Left;
+	struct _Cvor *Right;
 };
 
 Potrebno je izračunati prosječnu duljinu svake riječi zapisane u binarnom stablu,
@@ -216,12 +216,12 @@ Zadatak_11
 
 Napisati program koji iz datoteke čita podatke o broju bodova koje je jedan student dobio na ispitu i sprema ih u binarno stablo pretraživanja.
 
-struct student {
+struct _student {
 	char ime[128];
 	char prezime[128];
 	int broj_bodova;
-	int relativni_broj_bodova;
-	struct student *left;
+	float relativni_broj_bodova;
+	struct _student *left;
 	struct _student *right;
 };
 
@@ -239,17 +239,18 @@ Zadatak_12
 
 Napisati program koji čita iz datoteka podatke o studentima i ispitima, te kreira dvije vezane liste
 
-struct Student{
+struct _Student{
 	char *sifra_studenta;
-	char *ime; char *prezime;
-	char "sifra_ispita;
-	struct_Student *Next;
+	char *ime;
+	char *prezime;
+	char *sifra_ispita;
+	struct _Student *next;
 };
 
-struct_ispit {
+struct _ispit {
 	char *sifra_ispita;
 	char *naziv;
-	struct Ispit *Next;
+	struct _ispit *next;
 };
 
 Potrebno je ispisati koliko je studenata položilo svaki pojedini ispit (po nazivu ispita), te nabrojati koji su to studenti
@@ -276,15 +277,18 @@ Napisati program koji generira 20 slučajnih brojeva iz opsega 100 - 150 i njih 
 a) Nakon toga treba generirati pet slučajnih brojeva iz opsega 0-19 (voditi računa da se ne pojavi isti broj više puta) i
 elemente gornje liste s tim rednim brojem postaviti na početak liste. Ispisati te brojeve te novu listu s rednim brojevima.
 
-Npr. za listu:broj:	0	1	2	3	4	5	6	7	8
+Npr. za listu:
+broj:			0	1	2	3	4	5	6	7	8
 Element:		125	134	145	121	103	111	106	149	...
 Ako se izgeneriraju redni brojevi 4, 2, 6, 0, 5 prvo se na početak dodaje element s rednim brojem 4, pa s rednim brojem 2, pa s 6... Nova lista na kraju izgleda:
-Npr. za listu:broj:	5	0	6	2	4	1	3	7	8
-Element:		125	134	145	121	103	106	149		...
+Npr. za listu:
+broj:			5	0	6	2	4	1	3	7	5
+Element:		111	125	106	145	103	134	121	149	...
 
 b) Izmijeniti gornji zadatak tako da iz postojeće liste nova formira na način da se elementi iz postojeće liste prebace po redoslijedu generiranja rednih brojeva,
 tj. za gornji primjer nova bi lista izgledala:
-Npr. za listu:broj:	4	2	6	0	5	1	3	7	8
+Npr. za listu:
+broj:			4	2	6	0	5	1	3	7	8
 Element:		103	145	106	125	111	134	121	149	...
 Ispisati te brojeve te novu listu s rednim brojevima.
 	
@@ -402,3 +406,15 @@ a) Iz datoteke čitaju riječi i spremaju u vezanu listu na način da se riječi
 b) Iz generirane liste ispisati samo one riječi koje se nalaze zapisane u drugoj proizvoljnoj datoteci.
 
 ************************************************************************************************************************************************
+Zadatak_25
+1. ispitni rok 17.2.2021
+
+
+Napisati program koji iz datoteke (ime se unosi u programu) čita podatke o ljudima i kafićima u kojima su ti ljudi bili. Izgraditi vezanu listu, način ovisi o ocjeni, ispisati je, te za traženi kafić ispisati koliko ga je ljudi posjetilo i koji su to ljudi.
+
+Za ocjenu 2 - napraviti vezanu listu u kojoj su elementi složeni po nazivu kafićima. Za ocjenu 3 napraviti vezanu listu kafića, a svaki kafić ima dodatnu listu ljudi koji su ga posjetili.
+Za ocjenu 4 - nadopuniti zadatak za ocjenu 3 tako da kafići i osobe budu sortirani po abecedi.
+Za ocjenu 5 - nadopuniti zadatak za ocjenu 4 na način da se pronade kafić koji ima najviše
+posjetitelja i postaviti ga na početak vezane liste kafića.
+
+Na kraju programa potrebno je osloboditi svu dinamički rezerviranu memoriju (za sve ocjene).
