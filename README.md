@@ -1,6 +1,8 @@
 # Strukture-Podataka-Rjeseni-Ispiti
+Ovaj repozitorij sadrži riješene (i neke trenutno ne riješene) ispite s prijašnjih godina iz kolegija strukture podataka na smjeru računarstvo (120) FESB, Split
 
-#DODATAK
+# DODATAK
+
 # Otkrivanje memory leak-a u Visual Studio-u
 *(ova metoda funkcionira samo na MSVC compiler-u dakle generalno samo na Windows-u u bilo kojem Visual Studiu)*  
 ## Promjene u kodu
