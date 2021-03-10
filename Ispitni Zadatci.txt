@@ -406,3 +406,15 @@ a) Iz datoteke čitaju riječi i spremaju u vezanu listu na način da se riječi
 b) Iz generirane liste ispisati samo one riječi koje se nalaze zapisane u drugoj proizvoljnoj datoteci.
 
 ************************************************************************************************************************************************
+Zadatak_25
+1. ispitni rok 17.2.2021
+
+
+Napisati program koji iz datoteke (ime se unosi u programu) čita podatke o ljudima i kafićima u kojima su ti ljudi bili. Izgraditi vezanu listu, način ovisi o ocjeni, ispisati je, te za traženi kafić ispisati koliko ga je ljudi posjetilo i koji su to ljudi.
+
+Za ocjenu 2 - napraviti vezanu listu u kojoj su elementi složeni po nazivu kafićima. Za ocjenu 3 napraviti vezanu listu kafića, a svaki kafić ima dodatnu listu ljudi koji su ga posjetili.
+Za ocjenu 4 - nadopuniti zadatak za ocjenu 3 tako da kafići i osobe budu sortirani po abecedi.
+Za ocjenu 5 - nadopuniti zadatak za ocjenu 4 na način da se pronade kafić koji ima najviše
+posjetitelja i postaviti ga na početak vezane liste kafića.
+
+Na kraju programa potrebno je osloboditi svu dinamički rezerviranu memoriju (za sve ocjene).
