@@ -1,5 +1,5 @@
 # Strukture-Podataka-Rjeseni-Ispiti
-Ovaj repozitorij sadrži riješene (i neke trenutno ne riješene) ispite s prijašnjih godina iz kolegija strukture podataka na smjeru računarstvo (120) FESB, Split
+Ovaj repozitorij sadrži riješene ispite s prijašnjih godina iz kolegija strukture podataka na smjeru računarstvo (120) FESB, Split
 
 # DODATAK
 
